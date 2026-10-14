@@ -935,8 +935,8 @@ export function CoordinatorsPage() {
     <section className="section coordinators-page">
       <PageHeading eyebrow="TALENT HUNT 2K26 / THE TEAM" title="MEET THE CREW.">
         <p>
-          Faculty advisors, student general coordinators, and event leads who
-          make Talent Hunt happen.
+          Convenors, faculty, student, and event coordinators who make Talent
+          Hunt happen.
         </p>
       </PageHeading>
       <div
@@ -955,7 +955,9 @@ export function CoordinatorsPage() {
             onClick={() => setActiveTab(g.id)}
           >
             {g.label}
-            <span className="coord-tab-count">{g.members.length}</span>
+            {g.members.length > 0 && (
+              <span className="coord-tab-count">{g.members.length}</span>
+            )}
           </button>
         ))}
       </div>
@@ -971,6 +973,12 @@ export function CoordinatorsPage() {
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="coord-grid"
         >
+          {current?.members.length === 0 && (
+            <div className="empty-state">
+              <h2>NAMES COMING SOON.</h2>
+              <p>The coordinator list will be announced soon.</p>
+            </div>
+          )}
           {current?.members.map((p, i) => (
             <motion.div
               key={p.id}

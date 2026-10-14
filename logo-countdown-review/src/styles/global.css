@@ -2617,3 +2617,16 @@ em {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
+.coord-grid .empty-state {
+  grid-column: 1 / -1;
+  padding: 48px 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.coord-grid .empty-state h2 {
+  font-size: clamp(30px, 4vw, 46px);
+}
+.coord-grid .empty-state p {
+  margin: 16px 0 0;
+  color: var(--muted);
+}
