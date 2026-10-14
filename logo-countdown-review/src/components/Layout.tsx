@@ -40,6 +40,21 @@ export function Header() {
     setOpen(false);
     toggle.current?.focus();
   };
+  const containMenuFocus = (event: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key !== "Tab") return;
+    const controls = event.currentTarget.querySelectorAll<HTMLElement>(
+      "a[href], button:not([disabled])",
+    );
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  };
   return (
     <>
       <a href="#main" className="skip-link">
@@ -75,34 +90,58 @@ export function Header() {
         id="mobile-menu"
         className="mobile-menu"
         aria-labelledby="menu-heading"
+        onKeyDown={containMenuFocus}
         onCancel={() => setOpen(false)}
         onClose={() => setOpen(false)}
       >
         <div className="menu-top">
-          <span id="menu-heading" className="eyebrow">
-            FIND YOUR MOMENT
+          <span className="eyebrow">
+            <span className="signal" aria-hidden="true" />
+            TALENT HUNT 2K26
           </span>
-          <button autoFocus onClick={close}>
-            Close ×
+          <button autoFocus onClick={close} aria-label="Close menu">
+            <span aria-hidden="true">×</span>
           </button>
+        </div>
+        <div className="menu-intro">
+          <h2 id="menu-heading">
+            FIND YOUR <em>MOMENT.</em>
+          </h2>
+          <p>Explore the events. Meet the crew. Take the stage.</p>
         </div>
         <nav aria-label="Mobile navigation">
           {[...siteData.nav, { to: "/register", label: "Register" }].map(
             (n, i) => (
-              <Link
+              <NavLink
+                end={n.to === "/"}
                 key={n.to}
                 to={n.to}
+                className={({ isActive }) =>
+                  [
+                    isActive ? "menu-link-active" : "",
+                    n.to === "/register" ? "menu-register" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")
+                }
                 onClick={close}
                 style={{ animationDelay: `${i * 35}ms` }}
               >
-                <span className="micro">0{i + 1}</span>
-                {n.label}
-                <span aria-hidden="true">↗</span>
-              </Link>
+                <span className="micro" aria-hidden="true">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="menu-link-label">{n.label}</span>
+                <span className="menu-link-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </NavLink>
             ),
           )}
         </nav>
-        <p>{siteData.settings.eligibility}</p>
+        <p className="menu-footer">
+          <span className="signal" aria-hidden="true" />
+          {siteData.settings.eligibility}
+        </p>
       </dialog>
     </>
   );

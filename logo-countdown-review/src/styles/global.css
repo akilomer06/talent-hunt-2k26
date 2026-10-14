@@ -325,54 +325,177 @@ em {
 }
 .menu-toggle {
   display: none;
+  min-width: 44px;
   min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  transition: border-color var(--fast);
+}
+.menu-toggle:hover {
+  border-color: var(--orange-text);
 }
 .mobile-menu {
   position: fixed;
-  inset: 0;
-  width: 100%;
+  inset: 0 0 0 auto;
+  width: min(100%, 520px);
   max-width: none;
   height: 100dvh;
   max-height: none;
-  border: 0;
-  padding: 24px;
-  background: var(--blue-deep);
+  border: 1px solid #efeedc14;
+  border-radius: 20px 0 0 20px;
+  padding: max(20px, env(safe-area-inset-top))
+    max(22px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom))
+    max(22px, env(safe-area-inset-left));
+  background:
+    radial-gradient(ellipse at 100% 0%, #ff5b1918, transparent 42%),
+    linear-gradient(160deg, #181a1c, #0d1012 65%);
   color: var(--text);
   margin: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: -24px 0 80px #0008;
 }
 .mobile-menu::backdrop {
-  background: var(--bg);
+  background: #090b0dbd;
+  backdrop-filter: blur(10px);
 }
 .menu-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #efeedc18;
 }
 .menu-top .eyebrow {
   margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.15em;
 }
 .menu-top button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
   min-height: 44px;
+  border: 1px solid #efeedc24;
+  border-radius: 50%;
+  background: #efeedc08;
+  font: 300 30px/1 var(--body);
+  transition:
+    background var(--fast),
+    border-color var(--fast);
+}
+.menu-top button:hover {
+  background: #ff5b1918;
+  border-color: var(--orange-text);
+}
+.menu-intro {
+  padding: 22px 0 20px;
+}
+.menu-intro h2 {
+  font-size: clamp(35px, 8vw, 46px);
+  line-height: 1;
+}
+.menu-intro h2 em {
+  color: var(--orange-text);
+}
+.menu-intro p {
+  max-width: 290px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted);
 }
 .mobile-menu nav {
   display: flex;
   flex-direction: column;
+  gap: 3px;
 }
 .mobile-menu nav a {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  font-family: var(--display);
+  font-size: clamp(23px, 5.8vw, 29px);
+  line-height: 1.1;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition:
+    color var(--fast),
+    background var(--fast),
+    border-color var(--fast);
+}
+.mobile-menu nav a .micro {
+  color: #a0a5a6;
+  font: 500 10px/1 var(--body);
+  letter-spacing: 0.06em;
+}
+.menu-link-label {
+  min-width: 0;
+}
+.menu-link-arrow {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #efeedc14;
+  border-radius: 50%;
+  color: var(--muted);
+  font: 16px/1 var(--body);
+}
+.mobile-menu nav a:hover,
+.mobile-menu nav a.menu-link-active {
+  background: #efeedc07;
+  border-color: #efeedc1c;
+}
+.mobile-menu nav a.menu-link-active .micro,
+.mobile-menu nav a.menu-link-active .menu-link-arrow {
+  color: var(--orange-text);
+}
+.mobile-menu nav a.menu-link-active {
+  box-shadow: inset 3px 0 var(--orange-text);
+}
+.mobile-menu nav a.menu-register {
+  margin-top: 12px;
+  min-height: 54px;
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: none;
+}
+.mobile-menu nav a.menu-register .micro {
+  color: #53585b;
+}
+.mobile-menu nav a.menu-register .menu-link-arrow {
+  background: var(--orange);
+  border-color: transparent;
+  color: var(--bg);
+}
+.mobile-menu nav a.menu-register:hover {
+  background: #fffdf0;
+}
+.menu-footer {
   display: flex;
   align-items: center;
-  gap: 18px;
-  font-family: var(--display);
-  font-size: clamp(27px, 6vh, 48px);
-  padding: 9px 0;
-  border-bottom: 1px solid #ffffff35;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #efeedc18;
+  font-size: 11px;
+  color: var(--muted);
 }
-.mobile-menu nav a > span:last-child {
-  margin-left: auto;
+.menu-footer .signal {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
 }
-.mobile-menu p {
-  margin-top: 24px;
+@media (max-width: 520px) {
+  .mobile-menu {
+    border: 0;
+    border-radius: 0;
+  }
 }
 .college-logo {
   background: #fff;
