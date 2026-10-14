@@ -30,6 +30,8 @@ import {
   SmartImage,
 } from "../components/UI";
 import { Entrance } from "../components/Experience";
+import { ArcadeHero, ExplorerHub } from "../components/Arcade";
+import { SaveEventButton, useExplorer } from "../components/Explorer";
 
 export function useNow() {
   const [now, setNow] = useState<number | null>(null);
@@ -121,6 +123,7 @@ function SectionHeading({
   );
 }
 export function Featured() {
+  const { state } = useExplorer();
   const list = siteData.featuredIds
     .map((id) => siteData.events.find((e) => e.id === id))
     .filter((e): e is EventRecord => !!e);
@@ -128,7 +131,7 @@ export function Featured() {
   const [hover, setHover] = useState(false);
   const [focus, setFocus] = useState(false);
   const [paused, setPaused] = useState(false);
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion() || state.motionPaused;
   useEffect(() => {
     if (list.length < 2 || hover || focus || paused || reduced) return;
     const timer = window.setInterval(
@@ -262,88 +265,11 @@ export function Home() {
       {siteData.announcements.map((a) => (
         <AnnouncementBanner key={a.id} announcement={a} />
       ))}
-      <section className="hero">
-        <Entrance className="hero-top" delay={0.05}>
-          <p>
-            {siteData.settings.school}
-            <br />
-            <strong>{siteData.settings.department}</strong>
-          </p>
-          <SmartImage
-            src={siteData.assets.college}
-            alt={siteData.settings.college}
-            className="college-logo"
-            width="220"
-            height="61"
-          />
-        </Entrance>
-        <div className="hero-body">
-          <div className="hero-copy">
-            <Entrance delay={0.12}>
-              <Eyebrow>{siteData.copy.heroEyebrow}</Eyebrow>
-            </Entrance>
-            <Entrance delay={0.22}>
-              <h1>
-                <span>TALENT</span>
-                <span className="hero-hunt">
-                  HUNT<span className="year">2K26</span>
-                </span>
-              </h1>
-            </Entrance>
-            <Entrance delay={0.34}>
-              <p className="hero-tagline">{siteData.copy.heroTagline}</p>
-            </Entrance>
-            <Entrance delay={0.43}>
-              <div className="button-row">
-                <ButtonLink to="/#competitions">Explore Events</ButtonLink>
-                <ButtonLink to="/register" secondary>
-                  Register Now
-                </ButtonLink>
-              </div>
-              <p className="eligibility">
-                <span aria-hidden="true">◈</span>{" "}
-                {siteData.settings.eligibility}
-              </p>
-            </Entrance>
-          </div>
-          <Entrance className="hero-poster" delay={0.3}>
-            <div className="poster-top">
-              <span className="micro">THE OFFICIAL DROP</span>
-              <span aria-hidden="true">↘</span>
-            </div>
-            <a
-              href={siteData.assets.brochureImage}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View the official Talent Hunt brochure"
-            >
-              <SmartImage
-                src={siteData.assets.brochureImage}
-                alt="Official Talent Hunt 2K26 brochure"
-                width="1024"
-                height="1536"
-                fetchPriority="high"
-              />
-            </a>
-            <div className="poster-stamp">
-              <span>16 EVENTS</span>
-              <span>ONE STAGE ↗</span>
-            </div>
-            <span className="poster-side" aria-hidden="true">
-              CREATE / COMPETE / EXPRESS
-            </span>
-          </Entrance>
-        </div>
-        <Entrance className="hero-bottom" delay={0.5}>
-          <span>TECHNICAL × NON-TECHNICAL</span>
-          <a href="#competitions">
-            SCROLL TO EXPLORE <span aria-hidden="true">↓</span>
-          </a>
-        </Entrance>
-      </section>
+      <ArcadeHero />
       <Reveal>
         <DateStrip />
       </Reveal>
+      <ExplorerHub />
       <section className="section intro-section">
         <Reveal>
           <Eyebrow>NOT JUST ANOTHER DAY ON CAMPUS</Eyebrow>
@@ -534,6 +460,7 @@ export function EventPage() {
           </div>
           <div className="button-row">
             <ButtonLink to="/register">Register Now</ButtonLink>
+            <SaveEventButton event={event} detail />
             <ShareActions />
           </div>
           <p className="eligibility">{siteData.settings.eligibility}</p>

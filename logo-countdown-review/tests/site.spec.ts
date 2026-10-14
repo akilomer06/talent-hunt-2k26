@@ -100,6 +100,10 @@ test("category browsing, direct links, back/forward and scroll restoration", asy
   await page
     .getByRole("link", { name: "Explore Code Canvas", exact: true })
     .scrollIntoViewIfNeeded();
+  // Measure the settled card, rather than its temporary entrance offset.
+  await expect(
+    page.getByRole("link", { name: "Explore Code Canvas", exact: true }).locator(".."),
+  ).toHaveCSS("transform", "none");
   const y = await page.evaluate(() => window.scrollY);
   await page
     .getByRole("link", { name: "Explore Code Canvas", exact: true })
@@ -232,10 +236,13 @@ test("intro runs once per tab and provides an immediate skip", async ({
   await context.close();
 });
 
-test("responsive widths and local-only network requests", async ({ page }) => {
+test("responsive widths and local-only network requests", async ({
+  page,
+}, testInfo) => {
   const external = new Set<string>();
+  const origin = new URL(testInfo.project.use.baseURL!).origin;
   page.on("request", (r) => {
-    if (!r.url().startsWith("http://127.0.0.1:4173")) external.add(r.url());
+    if (new URL(r.url()).origin !== origin) external.add(r.url());
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const width of [320, 768, 1024, 1920]) {

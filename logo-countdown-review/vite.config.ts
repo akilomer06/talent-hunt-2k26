@@ -12,6 +12,24 @@ export default defineConfig({
     port: 4175,
   },
   plugins: [react(), tailwindcss()],
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "framework",
+              test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/,
+            },
+            {
+              name: "motion",
+              test: /node_modules[\\/](framer-motion|motion-dom|motion-utils)[\\/]/,
+            },
+          ],
+        },
+      },
+    },
+  },
   test: {
     environment: "jsdom",
     setupFiles: ["./src/test/setup.ts"],

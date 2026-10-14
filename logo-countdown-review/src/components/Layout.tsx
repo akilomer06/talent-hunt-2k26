@@ -9,6 +9,7 @@ import { siteData } from "../data/siteData";
 import { metadata } from "../lib/content";
 import { BrochureLink, Reveal, SmartImage } from "./UI";
 import { BrandWordmark } from "./BrandWordmark";
+import { ExplorerControls } from "./Explorer";
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -71,6 +72,7 @@ export function Header() {
             </NavLink>
           ))}
         </nav>
+        <ExplorerControls />
         <Link to="/register" className="nav-register">
           Register <span aria-hidden="true">↗</span>
         </Link>
@@ -314,7 +316,7 @@ export function NavigationEffects() {
     } catch {
       /* Memory fallback. */
     }
-    const id = requestAnimationFrame(() => {
+    const restore = () => {
       if (type === "POP") window.scrollTo(0, y);
       else if (location.hash)
         document.getElementById(location.hash.slice(1))?.scrollIntoView();
@@ -323,10 +325,23 @@ export function NavigationEffects() {
         document.getElementById("main")?.focus({ preventScroll: true });
         previous.current = location.pathname;
       }
-    });
+    };
+    let routeFinished = false;
+    const finish = (event: Event) => {
+      if (
+        routeFinished ||
+        (event as CustomEvent<string>).detail !== location.key
+      )
+        return;
+      routeFinished = true;
+      restore();
+    };
+    const id = requestAnimationFrame(restore);
+    window.addEventListener("th26:route-ready", finish);
     window.addEventListener("scroll", save, { passive: true });
     return () => {
       cancelAnimationFrame(id);
+      window.removeEventListener("th26:route-ready", finish);
       window.removeEventListener("scroll", save);
     };
   }, [location.key, location.pathname, location.search, location.hash, type]);

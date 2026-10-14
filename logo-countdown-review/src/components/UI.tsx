@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { editorialEase } from "./Experience";
+import { SaveEventButton, useExplorer } from "./Explorer";
 import {
   siteData,
   type Announcement,
@@ -55,7 +56,8 @@ export function Reveal({
   className?: string;
   delay?: number;
 }) {
-  const reduced = useReducedMotion();
+  const { state } = useExplorer();
+  const reduced = useReducedMotion() || state.motionPaused;
   return (
     <motion.div
       className={className}
@@ -78,7 +80,8 @@ export function ButtonLink({
   secondary?: boolean;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
-  const reduced = useReducedMotion();
+  const { state } = useExplorer();
+  const reduced = useReducedMotion() || state.motionPaused;
   return (
     <Link
       ref={ref}
@@ -211,7 +214,8 @@ export function EventArt({
   hero?: boolean;
   shared?: boolean;
 }) {
-  const reduced = useReducedMotion();
+  const { state } = useExplorer();
+  const reduced = useReducedMotion() || state.motionPaused;
   const i = siteData.events.findIndex((e) => e.id === event.id);
   return (
     <motion.div
@@ -249,7 +253,8 @@ export function EventArt({
   );
 }
 export function EventCard({ event }: { event: EventRecord }) {
-  const reduced = useReducedMotion();
+  const { state } = useExplorer();
+  const reduced = useReducedMotion() || state.motionPaused;
   const reset = (element: HTMLAnchorElement) => {
     element.style.setProperty("--tilt-x", "0deg");
     element.style.setProperty("--tilt-y", "0deg");
@@ -293,7 +298,9 @@ export function EventCard({ event }: { event: EventRecord }) {
             {siteData.categories[event.category].short}
           </span>
           <span className="card-edition">
-            <span className="card-edition-num">#0{event.order}</span>
+            <span className="card-edition-num">
+              #{String(event.order).padStart(2, "0")}
+            </span>
           </span>
         </div>
         <EventArt event={event} />
@@ -320,8 +327,16 @@ export function EventCard({ event }: { event: EventRecord }) {
               <Arrow />
             </span>
           </span>
+          <span
+            className={`card-discovery ${state.visited.includes(event.id) ? "is-discovered" : ""}`}
+          >
+            {state.visited.includes(event.id)
+              ? "DISCOVERED ✓"
+              : "+25 EXPLORER XP"}
+          </span>
         </div>
       </Link>
+      <SaveEventButton event={event} />
     </motion.article>
   );
 }
@@ -337,9 +352,10 @@ export function EventGrid({ events }: { events: EventRecord[] }) {
   );
 }
 export function Accordion({ faq }: { faq: FAQ }) {
+  const { state } = useExplorer();
   const [open, setOpen] = useState(false);
   const id = useId();
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion() || state.motionPaused;
   return (
     <div className="accordion">
       <h3>

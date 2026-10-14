@@ -129,7 +129,7 @@ test("opening and navigation work with unavailable browser storage", async ({
   await expect(opening).toHaveCount(0);
   await page
     .locator(".hero")
-    .getByRole("link", { name: "Explore Events" })
+    .getByRole("link", { name: "Choose your challenge" })
     .click();
   await expect(page).toHaveURL(/#competitions$/);
   await expect(
