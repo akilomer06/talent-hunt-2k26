@@ -1,0 +1,14 @@
+# Dependencies must be installed on the deployment platform.
+node_modules/
+
+# Generated build output and temporary SSR bundles.
+dist/
+.prerender/
+
+# Generated test reports.
+test-results/
+playwright-report/
+coverage/
+
+# Local Vercel project metadata.
+.vercel/

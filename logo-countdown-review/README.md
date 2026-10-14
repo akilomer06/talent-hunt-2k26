@@ -113,6 +113,7 @@ No deployment was performed as part of this build; remote Vercel serving remains
 
 ## Troubleshooting and limits
 
+- Keep `package-lock.json` committed, but never commit `node_modules/`, `dist/`, `.prerender/`, or generated test reports. Windows npm launchers committed with Git mode `100644` cannot execute on Vercel's Linux workers and can cause `tsc: Permission denied`. Install dependencies on the target platform with `npm ci`; do not repair committed launchers with `chmod` or bypass type checking. For this repository, Vercel's Root Directory is `logo-countdown-review`, with Install Command `npm ci`.
 - On Windows, use `npm.cmd` if PowerShell blocks `npm.ps1`. Lint/format runners explicitly read OneDrive file placeholders instead of relying on CLI glob traversal.
 - If port 4173 is occupied by a different project, stop that process or change the port in `scripts/serve.mjs` and Playwright config together.
 - After changing content or assets, rebuild before `npm run preview`; the preview serves `dist`, not source.
