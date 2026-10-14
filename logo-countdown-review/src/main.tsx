@@ -11,7 +11,6 @@ import "./styles/global.css";
 import "./styles/event-posters.css";
 import "./styles/experience.css";
 import "./styles/brand-countdown.css";
-import "./styles/arcade.css";
 const root = document.getElementById("root")!;
 const app = (
   <BrowserRouter>

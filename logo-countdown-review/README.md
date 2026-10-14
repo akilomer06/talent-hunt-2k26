@@ -23,16 +23,6 @@ npm run preview
 
 Production preview: `http://127.0.0.1:4173`. The included preview server returns a 404 status for invalid URLs and resolves the generated directory pages. It is a local QA utility, not a required production backend. Stop with Ctrl+C.
 
-## Arcade experience and explorer pass
-
-The interface uses a graphite, orange, and lime arena theme across the homepage, event cards, detail pages, registration, coordinator groups, navigation, and supporting pages. Decorative motion follows the device's reduced-motion preference; the pause button in the header also stops it and remembers that preference.
-
-The optional explorer pass awards 25 XP for each distinct event page discovered and 40 XP for each new best round in the four-round Signal Sync memory game. Revisiting events or replaying completed rounds does not farm XP. Bookmark buttons save events to a personal shortlist, and five badges track discovery, shortlist, and game progress. These are local browsing features and never alter official competition results, eligibility, or registration.
-
-Progress is stored in `th26:explorer:v1` on the current device. Invalid or obsolete stored entries are discarded. When storage is blocked, the pass remains usable for the current visit. The homepage's Reset my pass action clears the data after confirmation. The game is untimed, supports keyboard arrows and a visible pattern hint, and cancels its sequence timers when closed or navigated away from.
-
-`src/components/Arcade.tsx` contains the home console, pass, and game. `src/components/Explorer.tsx` owns local progress and bookmark controls; `src/lib/explorer.ts` validates storage and derives scores and badges. `src/styles/arcade.css` defines the shared theme. The Vite build separates framework and motion libraries into reusable chunks while preserving static SSR/prerendering.
-
 ## Stack and architecture
 
 - React 19.3.0, TypeScript 6.0.3, Vite 8.3.4.

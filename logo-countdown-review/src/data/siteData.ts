@@ -775,10 +775,6 @@ export const siteData = {
         text: "Session storage remembers whether the opening animation has played and keeps navigation scroll positions for this browser tab. Local storage remembers individual dismissed announcement IDs. Search and filter choices appear in the page URL. If browser storage is unavailable, the website continues to work with temporary in-memory state.",
       },
       {
-        title: "Your explorer pass",
-        text: "Saved events, discovered events, warm-up game progress, and your motion preference are stored locally on this device under th26:explorer:v1. Explorer XP and badges are optional browsing features, have no effect on official results or registration, and are not sent to a server. Reset your pass from the homepage to clear this progress. If storage is unavailable, the pass works for the current visit.",
-      },
-      {
         title: "Sharing",
         text: "Copy Link writes the current page URL to your clipboard only when requested. Native Share opens your device’s share interface only when requested. No sharing data is sent to a website backend.",
       },

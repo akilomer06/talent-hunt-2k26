@@ -16,16 +16,14 @@ import {
   useSpring,
 } from "framer-motion";
 import { BrandWordmark } from "./BrandWordmark";
-import { useExplorer } from "./Explorer";
 
 export const editorialEase = [0.22, 1, 0.36, 1] as const;
 const ExperienceContext = createContext({ ready: true });
 export const useExperience = () => useContext(ExperienceContext);
 
 function Opening({ dismiss }: { dismiss: () => void }) {
-  const { state } = useExplorer();
   const dialog = useRef<HTMLDialogElement>(null);
-  const reduced = useReducedMotion() || state.motionPaused;
+  const reduced = useReducedMotion();
   const [interacting, setInteracting] = useState(false);
 
   useEffect(() => {
@@ -218,11 +216,10 @@ function Opening({ dismiss }: { dismiss: () => void }) {
 }
 
 export function ExperienceProvider({ children }: { children: ReactNode }) {
-  const { state } = useExplorer();
   const [stage, setStage] = useState<
     "pending" | "playing" | "leaving" | "ready"
   >("pending");
-  const reduced = useReducedMotion() || state.motionPaused;
+  const reduced = useReducedMotion();
   const seenInMemory = useRef(false);
   const dismiss = useCallback(() => {
     setStage("leaving");
@@ -251,23 +248,15 @@ export function ExperienceProvider({ children }: { children: ReactNode }) {
     window.addEventListener("replay-intro", replay);
     return () => window.removeEventListener("replay-intro", replay);
   }, [reduced]);
-  useEffect(() => {
-    if (stage !== "leaving") return;
-    // Native dialogs must close even if animation frames are throttled.
-    const timer = window.setTimeout(() => setStage("ready"), 1400);
-    return () => window.clearTimeout(timer);
-  }, [stage]);
 
   return (
     <ExperienceContext.Provider
       value={{ ready: stage === "ready" || stage === "leaving" }}
     >
       {children}
-      {stage !== "ready" && (
-        <AnimatePresence onExitComplete={() => setStage("ready")}>
-          {stage === "playing" && <Opening key="opening" dismiss={dismiss} />}
-        </AnimatePresence>
-      )}
+      <AnimatePresence onExitComplete={() => setStage("ready")}>
+        {stage === "playing" && <Opening key="opening" dismiss={dismiss} />}
+      </AnimatePresence>
     </ExperienceContext.Provider>
   );
 }
@@ -283,8 +272,7 @@ export function Entrance({
   delay?: number;
 }) {
   const { ready } = useExperience();
-  const { state } = useExplorer();
-  const reduced = useReducedMotion() || state.motionPaused;
+  const reduced = useReducedMotion();
   const controls = useAnimationControls();
   useEffect(() => {
     if (reduced) controls.set({ opacity: 1, y: 0 });
@@ -309,9 +297,8 @@ export function Entrance({
 }
 
 export function ReadingProgress() {
-  const { state } = useExplorer();
   const { scrollYProgress } = useScroll();
-  const reduced = useReducedMotion() || state.motionPaused;
+  const reduced = useReducedMotion();
   const progress = useSpring(scrollYProgress, { stiffness: 160, damping: 32 });
   return (
     <motion.div
