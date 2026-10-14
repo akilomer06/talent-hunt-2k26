@@ -546,7 +546,7 @@ export const siteData = {
     eligibility: "For Crescent CSE students only",
     eligibilityNote:
       "Participation is restricted to Crescent students only. The official brochure specifies “ONLY FOR CSE.”",
-    productionUrl: "https://talent-hunt-2k26.vercel.app",
+    productionUrl: null,
     copyright:
       "TALENT HUNT 2K26 · Department of Computer Science and Engineering",
     archiveMessage:

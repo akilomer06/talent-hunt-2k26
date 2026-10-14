@@ -2,7 +2,7 @@
 
 A complete backend-free event website built from the supplied official brochure. Includes the homepage, two category directories, sixteen dedicated competition pages, schedule, registration, about, venue, FAQs, contact, privacy and a real static 404.
 
-**Vercel project: [talent-hunt-2k26.vercel.app](https://talent-hunt-2k26.vercel.app).** The current version includes the cream, blue, orange and black theme, original crest header with text beside it, updated brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
+**Vercel project: [brainy6 / talent-hunt-2k26](https://vercel.com/brainy6/talent-hunt-2k26).** The current version includes the cream, blue, orange and black theme, original crest header with text beside it, updated brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
 
 ## Run locally
 
@@ -111,7 +111,7 @@ The existing GitHub repository `akilomer06/talent-hunt-2k26` is connected to the
 7. Deploy only when authorised. Verify home, both directories, a refreshed event URL, an unknown URL, registration state and mobile navigation on the resulting host.
 8. Once the actual production origin is known, set `settings.productionUrl`, rebuild and redeploy to generate canonical URLs and a sitemap.
 
-The production origin is configured in `settings.productionUrl`, so production builds include canonical URLs, Open Graph URLs, and a sitemap.
+The repository's saved homepage URL `talent-hunt-2k26.vercel.app` returns `DEPLOYMENT_NOT_FOUND`. The current production deployment requires Vercel sign-in. Leave `settings.productionUrl` unset until the actual stable public domain is confirmed, then configure it and redeploy to enable canonical URLs, Open Graph URLs, and a sitemap.
 
 ## Troubleshooting and limits
 
