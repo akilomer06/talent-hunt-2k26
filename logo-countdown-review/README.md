@@ -2,19 +2,19 @@
 
 A complete backend-free event website built from the supplied official brochure. Includes the homepage, two category directories, sixteen dedicated competition pages, schedule, registration, about, venue, FAQs, contact, privacy and a real static 404.
 
-**Local review build. The updated official brochure, verified registration QR, and Google Form link are configured.**
+**Vercel project: [talent-hunt-2k26.vercel.app](https://talent-hunt-2k26.vercel.app).** The current version includes the cream, blue, orange and black theme, original crest header with text beside it, updated brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
 
 ## Run locally
 
 Requirements: Node.js 22.12+ (Node 24 recommended), npm, and a modern browser. Development was verified on Windows with Node 24.18.0 and npm 11.16.0.
 
 ```powershell
-cd talent-hunt-2k26
+cd logo-countdown-review
 npm ci
 npm run dev
 ```
 
-Vite prints the development URL, normally `http://127.0.0.1:5173`. The development server renders client-side. To inspect the real static production pages:
+Vite prints the development URL, normally `http://127.0.0.1:5175`. The development server renders client-side. To inspect the real static production pages:
 
 ```powershell
 npm run build
@@ -54,7 +54,7 @@ npm run format:check
 
 The selected solution is **Vite 8.3.4 native SSR plus React DOM 19.3.0 `renderToString`**, used only at build time. This follows Vite's documented pre-rendering pattern: [Vite SSR / pre-rendering](https://vite.dev/guide/ssr). It avoids an extra runtime server or an unmaintained snapshot plugin.
 
-The build makes the client bundle, creates a temporary SSR bundle in `.prerender`, then `scripts/prerender.mjs` renders all 26 public routes and the 404. Every file contains actual page markup and its own title, description and Open Graph/Twitter metadata before JavaScript executes. React hydrates this markup on arrival. Local fonts and assets work without external CDNs.
+The build makes the client bundle, creates a temporary SSR bundle in `.prerender`, then `scripts/prerender.mjs` renders all 27 public routes and the 404. Every file contains actual page markup and its own title, description and Open Graph/Twitter metadata before JavaScript executes. React hydrates this markup on arrival. Local fonts and assets work without external CDNs.
 
 `scripts/verify-build.mjs` checks each generated page, its metadata, linked routes/assets and the generated Vercel routing configuration. Output is `dist/`. `.prerender/` is a build intermediate and must not be deployed.
 
@@ -70,7 +70,7 @@ Canonical URLs, `og:url` and sitemap generation activate only after `settings.pr
 
 **Eligibility discrepancy:** the brief said Crescent students only; the brochure says “ONLY FOR CSE.” The site uses the narrower “For Crescent CSE students only” and preserves the explicit Crescent restriction. Confirm with the organisers before widening eligibility. The brochure provides no individual competition descriptions; the site therefore avoids inferring rules from names or artwork.
 
-Coordinator names with uncertain small-print spelling remain in audit notes rather than public content. Only the two clearly readable convenors are published. Add verified coordinator records to the global list and/or specific event arrays when supplied. Unknown contact methods are hidden.
+The coordinators page includes both convenors, ten faculty coordinators, eleven student coordinators, and sixteen event coordinators supplied by the user. Unknown contact methods are hidden.
 
 ### Configure registration
 
@@ -94,22 +94,24 @@ Announcements default to an empty list. Each configured announcement needs a uni
 
 ### Motion and accessibility
 
-Fixed dark theme; semantic landmarks; visible keyboard focus; native modal mobile navigation with focus containment, Escape dismissal and focus return; accessible accordion and carousel controls; per-action status messages; inert outgoing routes during transitions. Shared-element art/title transitions link cards and detail pages. Native Share appears only when supported; Copy Link has a manual fallback. Intro is silent, skippable and session-scoped. Optional sound requires a click. Reduced motion skips the intro, stops carousel autoplay and suppresses large transitions.
+Cream, blue, orange and black theme; semantic landmarks; visible keyboard focus; native modal mobile navigation with focus containment, Escape dismissal and focus return; accessible accordions; per-action status messages; inert outgoing routes during transitions. Shared-element art/title transitions link cards and detail pages. Native Share appears only when supported; Copy Link has a manual fallback. Intro is silent, skippable and session-scoped. Optional sound requires a click. Reduced motion skips the intro and suppresses large transitions.
 
-Carousel autoplay pauses on hover, focus or its Pause control. It does not move focus. No map, analytics, tracking pixels, authentication, forms backend or database is included. Automated checks support the WCAG 2.2 AA target; they are not a certification of complete conformance.
+No map, analytics, tracking pixels, authentication, forms backend or database is included. Automated checks support the WCAG 2.2 AA target; they are not a certification of complete conformance.
 
-## Vercel deployment — only after explicit authorisation
+## Vercel deployment
+
+The existing GitHub repository `akilomer06/talent-hunt-2k26` is connected to the Vercel project. Its production branch is `main`, and its Root Directory is `logo-countdown-review`. Publish authorised updates by committing all changed source files and new assets in this app directory and pushing to `main`. Check the Vercel deployment status and the live production site after each release.
 
 1. Finish the launch checklist and review the latest production build.
 2. Put this project directory in a Git repository, or use it as the Root Directory in a repository containing other work.
 3. In Vercel, import that repository. Select **Other** if framework selection would override the committed configuration.
-4. Root Directory: `talent-hunt-2k26` if it is a subfolder; otherwise the repository root.
+4. Root Directory: `logo-countdown-review`.
 5. Install command: `npm ci`. Build command: `npm run build`. Output directory: `dist`. No runtime environment variables are required. Use Node 24.x or another supported version meeting Vite's requirements.
 6. The generated `vercel.json` maps verified deep links to their static HTML, serves existing files, and returns `/404.html` with status 404 for everything else. Do not add an SPA catch-all to `/index.html`.
 7. Deploy only when authorised. Verify home, both directories, a refreshed event URL, an unknown URL, registration state and mobile navigation on the resulting host.
 8. Once the actual production origin is known, set `settings.productionUrl`, rebuild and redeploy to generate canonical URLs and a sitemap.
 
-No deployment was performed as part of this build; remote Vercel serving remains a post-authorisation check.
+The production origin is configured in `settings.productionUrl`, so production builds include canonical URLs, Open Graph URLs, and a sitemap.
 
 ## Troubleshooting and limits
 

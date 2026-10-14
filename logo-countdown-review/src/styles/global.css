@@ -1,25 +1,27 @@
 @import "tailwindcss";
 @theme {
-  --color-ink: #090b0d;
-  --color-cream: #efeedc;
-  --color-electric: #0069f3;
-  --color-orange: #ff5b19;
+  --color-ink: #111110;
+  --color-cream: #f7f1df;
+  --color-electric: #1959ad;
+  --color-orange: #ff5a1f;
   --font-display: "Barlow Condensed", Impact, sans-serif;
   --font-body: "Barlow", Arial, sans-serif;
 }
 :root {
-  --bg: #090b0d;
-  --surface: #101316;
-  --surface-raised: #191d21;
-  --blue: #0069f3;
-  --blue-deep: #033bb2;
-  --blue-text: #78b3ff;
-  --orange: #ff5b19;
-  --orange-text: #ff996a;
-  --text: #efeedc;
-  --muted: #adb1b2;
-  --line: #353b3f;
-  --focus: #f8be75;
+  --cream: #f7f1df;
+  --ink: #111110;
+  --bg: var(--cream);
+  --surface: #efe7d3;
+  --surface-raised: #e7ddc6;
+  --blue: #1959ad;
+  --blue-deep: #124483;
+  --blue-text: var(--blue);
+  --orange: #ff5a1f;
+  --orange-text: #a9340a;
+  --text: var(--ink);
+  --muted: #625d50;
+  --line: #d3c9b2;
+  --focus: var(--blue);
   --radius: 3px;
   --space: clamp(22px, 5vw, 80px);
   --display: "Barlow Condensed", Impact, sans-serif;
@@ -27,9 +29,9 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --fast: 180ms;
   --slow: 600ms;
-  --shadow: 0 20px 70px #0008;
-  --glow: 0 0 35px #0069f333;
-  color-scheme: dark;
+  --shadow: 0 16px 40px #1111101a;
+  --glow: 0 6px 20px #1959ad20;
+  color-scheme: light;
   font-family: var(--body);
   color: var(--text);
   background: var(--bg);
@@ -48,6 +50,8 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: clip;
+  /* Route scroll memory owns the position while cards finish their entrances. */
+  overflow-anchor: none;
 }
 button,
 input,
@@ -245,7 +249,10 @@ em {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 30;
-  transition: box-shadow var(--fast), background 300ms, border-color 300ms;
+  transition:
+    box-shadow var(--fast),
+    background 300ms,
+    border-color 300ms;
 }
 .site-header.scrolled {
   background: rgba(9, 11, 13, 0.95);
@@ -273,7 +280,9 @@ em {
   border-radius: 50%;
   padding: 2px;
   box-shadow: 0 0 16px rgba(0, 105, 243, 0.4);
-  transition: transform 350ms var(--ease), box-shadow 350ms var(--ease);
+  transition:
+    transform 350ms var(--ease),
+    box-shadow 350ms var(--ease);
 }
 .brand:hover img {
   transform: scale(1.08) rotate(5deg);
@@ -660,7 +669,11 @@ em {
   display: flex;
   align-items: center;
   gap: 30px;
-  background: linear-gradient(180deg, rgba(16, 21, 28, 0.9) 0%, rgba(10, 13, 17, 0.98) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(16, 21, 28, 0.9) 0%,
+    rgba(10, 13, 17, 0.98) 100%
+  );
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -809,15 +822,19 @@ em {
     rgba(22, 28, 38, 0.95) 0%,
     rgba(11, 14, 20, 0.98) 100%
   );
-  border: 1px solid rgba(255,255,255,0.07);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 16px;
   overflow: hidden;
   position: relative;
-  transition: transform 360ms var(--ease), border-color 360ms, box-shadow 360ms;
+  transition:
+    transform 360ms var(--ease),
+    border-color 360ms,
+    box-shadow 360ms;
   transform-style: preserve-3d;
-  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
   will-change: transform;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
 .event-card > a::before {
   content: "";
@@ -825,7 +842,7 @@ em {
   inset: 0;
   background: radial-gradient(
     circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-    rgba(0,105,243,0.12) 0%,
+    rgba(0, 105, 243, 0.12) 0%,
     transparent 60%
   );
   opacity: 0;
@@ -838,20 +855,30 @@ em {
   opacity: 1;
 }
 .event-card > a:hover {
-  border-color: rgba(0,105,243,0.4);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,105,243,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
+  border-color: rgba(0, 105, 243, 0.4);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 105, 243, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 .card-orange > a {
-  background: linear-gradient(160deg, rgba(38, 22, 12, 0.95) 0%, rgba(20, 11, 4, 0.98) 100%);
+  background: linear-gradient(
+    160deg,
+    rgba(38, 22, 12, 0.95) 0%,
+    rgba(20, 11, 4, 0.98) 100%
+  );
 }
 .card-orange > a:hover {
-  border-color: rgba(255,91,25,0.45);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,91,25,0.2), inset 0 1px 0 rgba(255,255,255,0.06);
+  border-color: rgba(255, 91, 25, 0.45);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 91, 25, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 .card-orange > a::before {
   background: radial-gradient(
     circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-    rgba(255,91,25,0.14) 0%,
+    rgba(255, 91, 25, 0.14) 0%,
     transparent 60%
   );
 }
@@ -1003,9 +1030,9 @@ em {
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255, 255, 255, 0.07);
   color: var(--muted);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .card-copy .micro {
   font-size: 9px;
@@ -1030,7 +1057,7 @@ em {
   align-items: center;
   font-size: 11px;
   padding-top: 12px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
   transition: color 250ms;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -1050,12 +1077,15 @@ em {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  transition: background 250ms, border-color 250ms, transform 250ms;
+  transition:
+    background 250ms,
+    border-color 250ms,
+    transform 250ms;
 }
 .event-card a:hover .card-arrow {
   background: var(--blue);
@@ -1755,14 +1785,21 @@ em {
 }
 .person {
   padding: 30px;
-  background: linear-gradient(165deg, rgba(20, 26, 36, 0.88) 0%, rgba(11, 14, 20, 0.96) 100%);
+  background: linear-gradient(
+    165deg,
+    rgba(20, 26, 36, 0.88) 0%,
+    rgba(11, 14, 20, 0.96) 100%
+  );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 2px solid var(--blue);
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform 300ms var(--ease), border-color 300ms, box-shadow 300ms;
+  transition:
+    transform 300ms var(--ease),
+    border-color 300ms,
+    box-shadow 300ms;
 }
 .person:hover {
   transform: translateY(-5px);
@@ -1787,7 +1824,9 @@ em {
   margin-top: 18px;
   color: var(--blue-text);
   text-decoration: underline;
-  transition: color 250ms, transform 250ms;
+  transition:
+    color 250ms,
+    transform 250ms;
 }
 .person a:hover {
   color: #fff;
@@ -2711,7 +2750,7 @@ em {
   cursor: pointer;
 }
 .coord-tab:hover {
-  border-color: rgba(0,105,243,0.4);
+  border-color: rgba(0, 105, 243, 0.4);
   color: var(--text);
   background: var(--surface-raised);
 }
@@ -2728,12 +2767,12 @@ em {
 .coord-tab-count {
   font-size: 11px;
   opacity: 0.7;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   padding: 2px 8px;
   border-radius: 20px;
 }
 .coord-tab-active .coord-tab-count {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
 .coord-grid {
   display: grid;

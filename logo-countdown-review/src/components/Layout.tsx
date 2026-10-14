@@ -187,14 +187,16 @@ export function Footer() {
         </div>
       </Reveal>
       <div className="footer-logos">
-        <SmartImage
-          className="college-logo"
-          src={siteData.assets.college}
-          alt={siteData.settings.college}
-          width="240"
-          height="67"
-          loading="lazy"
-        />
+        <span className="college-logo-surface">
+          <SmartImage
+            className="college-logo"
+            src={siteData.assets.college}
+            alt={siteData.settings.college}
+            width="240"
+            height="67"
+            loading="lazy"
+          />
+        </span>
         <SmartImage
           src={siteData.assets.csea}
           alt="CSEA"

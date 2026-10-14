@@ -10,7 +10,7 @@ import {
   SmartImage,
 } from "../components/UI";
 import { Header } from "../components/Layout";
-import { CategoryPage, Featured, Registration } from "../pages/Pages";
+import { CategoryPage, Registration } from "../pages/Pages";
 import { siteData } from "../data/siteData";
 import App from "../App";
 const wrap = (node: React.ReactNode, path = "/") =>
@@ -175,22 +175,5 @@ describe("User interactions and fallbacks", () => {
     await user.click(screen.getByRole("button", { name: "Try Again" }));
     expect(screen.getByText("Recovered content")).toBeVisible();
     spy.mockRestore();
-  });
-  it("changes the featured event with controls without moving focus", async () => {
-    const user = userEvent.setup();
-    wrap(<Featured />);
-    const next = screen.getByRole("button", { name: "Next featured event" });
-    await user.click(next);
-    await waitFor(() =>
-      expect(
-        screen.getByRole("heading", { name: /Shutter Verse/ }),
-      ).toBeVisible(),
-    );
-    expect(next).toHaveFocus();
-    await user.click(screen.getByRole("button", { name: "Pause" }));
-    expect(screen.getByRole("button", { name: "Play" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
   });
 });

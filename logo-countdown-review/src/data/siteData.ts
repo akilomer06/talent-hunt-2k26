@@ -293,10 +293,8 @@ const eventDetails: Record<string, Partial<EventRecord>> = {
       "All challenges are self-contained within the authorized test environment.",
       "Winners determined by points accrued and timestamp of submissions.",
     ],
-    participation: [
-      "Individual or teams of up to 2",
-      "Bring laptops with Kali/security tools",
-    ],
+    participation: ["Teams of 1, 2, or 3 participants (maximum 3 per team)"],
+    equipment: ["Laptop only"],
   },
   "prompt-pop": {
     venue: "Venue TBA",
@@ -548,7 +546,7 @@ export const siteData = {
     eligibility: "For Crescent CSE students only",
     eligibilityNote:
       "Participation is restricted to Crescent students only. The official brochure specifies “ONLY FOR CSE.”",
-    productionUrl: null,
+    productionUrl: "https://talent-hunt-2k26.vercel.app",
     copyright:
       "TALENT HUNT 2K26 · Department of Computer Science and Engineering",
     archiveMessage:
@@ -557,10 +555,10 @@ export const siteData = {
   } satisfies GlobalSettings,
   assets: {
     college: "/assets/logos/crescent.png",
-    event: "/assets/logos/talent-hunt.png",
+    event: "/assets/logos/talent-hunt-crest.png",
     csea: "/assets/logos/csea.png",
     acm: "/assets/logos/acm.png",
-    brochureImage: "/assets/documents/brochure-qr.jpg",
+    brochureImage: "/assets/documents/brochure-crest-2026.png",
     brochurePdf: null,
     defaultSocial: null,
     introAudio: null,
@@ -584,18 +582,17 @@ export const siteData = {
   } as RegistrationConfig,
   announcements: [] as Announcement[],
   events,
-  featuredIds: ["code-break", "shutter-verse", "neural-nexus", "trashion"],
   schedule: [] as ScheduleEntry[],
   coordinators: [
     {
       id: "sharmila-sankar",
       name: "Dr. Sharmila Sankar",
-      role: "Convenor · Dean",
+      role: "Convenor · Dean, SCIMS",
     },
     {
       id: "aisha-banu",
-      name: "Dr. W. Aisha Banu",
-      role: "Convenor · HOD",
+      name: "Dr. Aisha Banu W",
+      role: "Convenor · HOD, CSE",
     },
   ] as Coordinator[],
   coordinatorGroups: [
@@ -606,12 +603,12 @@ export const siteData = {
         {
           id: "sharmila-sankar",
           name: "Dr. Sharmila Sankar",
-          role: "Convenor · Dean",
+          role: "Convenor · Dean, SCIMS",
         },
         {
           id: "aisha-banu",
-          name: "Dr. W. Aisha Banu",
-          role: "Convenor · HOD",
+          name: "Dr. Aisha Banu W",
+          role: "Convenor · HOD, CSE",
         },
       ],
     },
@@ -622,40 +619,52 @@ export const siteData = {
         {
           id: "karthiga",
           name: "Dr. I. Karthiga",
-          role: "Assistant Professor",
+          role: "Assistant Professor · CSE",
         },
-        { id: "snegaa", name: "Ms. A. S. Snegaa", role: "Assistant Professor" },
+        {
+          id: "snegaa",
+          name: "Ms. A. Snegaa",
+          role: "Assistant Professor · CSE",
+        },
         {
           id: "tamilarasi",
           name: "Ms. C. Tamilarasi",
-          role: "Assistant Professor",
+          role: "Assistant Professor · CSE",
         },
-        { id: "ms-usha", name: "Ms. M. S. Usha", role: "Assistant Professor" },
+        {
+          id: "ms-usha",
+          name: "Ms. M. S. Usha",
+          role: "Assistant Professor · CSE",
+        },
         {
           id: "joy-kiruba",
           name: "Ms. P. Joy Kiruba",
-          role: "Assistant Professor",
-        },
-        { id: "p-usha", name: "Ms. P. Usha", role: "Assistant Professor" },
-        {
-          id: "suthana-rasha-begam",
-          name: "Ms. A. Suthana Rasha Begam",
-          role: "Assistant Professor",
+          role: "Assistant Professor · CSE",
         },
         {
-          id: "suthana-aiysha-maryam",
-          name: "Ms. A. Suthana Aiysha Maryam",
-          role: "Assistant Professor",
+          id: "p-usha",
+          name: "Ms. P. Usha",
+          role: "Assistant Professor · CSE",
+        },
+        {
+          id: "sulthana-rashya-begam",
+          name: "Ms. A. Sulthana Rashya Begam",
+          role: "Assistant Professor · CSE",
+        },
+        {
+          id: "shirin-ayisha-maryam",
+          name: "Ms. M. Shirin Ayisha Maryam",
+          role: "Assistant Professor · CSE",
         },
         {
           id: "suberiya-begum",
           name: "Ms. S. Suberiya Begum",
-          role: "Assistant Professor",
+          role: "Assistant Professor · CSE",
         },
         {
           id: "mohammed-zubair",
           name: "Mr. M. Mohammed Zubair",
-          role: "Assistant Professor",
+          role: "Assistant Professor · CSE",
         },
       ],
     },
@@ -666,56 +675,158 @@ export const siteData = {
         {
           id: "abdul-mateen-danish",
           name: "Abdul Mateen Danish",
-          role: "Student Coordinator",
+          role: "Student Coordinator · CSE",
         },
         {
           id: "mohamed-fawaz",
           name: "A. Mohamed Fawaz",
-          role: "Student Coordinator",
+          role: "Student Coordinator · CSE",
         },
         {
           id: "yusrah-sakina",
           name: "Yusrah Sakina",
-          role: "Student Coordinator",
+          role: "Student Coordinator · CSE",
         },
         {
           id: "mohamed-ashfaq-kuddus",
           name: "Mohamed Ashfaq Kuddus",
-          role: "Student Coordinator",
+          role: "Student Coordinator · CSE",
         },
         {
           id: "syed-siddique-ahmed",
           name: "Syed Siddique Ahmed",
-          role: "Student Coordinator",
+          role: "Student Coordinator · CSE (CS)",
         },
-        { id: "kishore", name: "Kishore", role: "Student Coordinator" },
-        { id: "vijay-hari", name: "Vijay Hari", role: "Student Coordinator" },
-        { id: "keerthana", name: "V. Keerthana", role: "Student Coordinator" },
-        { id: "syed-ishaaq", name: "Syed Ishaaq", role: "Student Coordinator" },
-        { id: "joshitha", name: "N. Joshitha", role: "Student Coordinator" },
+        {
+          id: "kishore",
+          name: "Kishore",
+          role: "Student Coordinator · CSE (IOT)",
+        },
+        {
+          id: "vijay-hari",
+          name: "Vijay Hari",
+          role: "Student Coordinator · AI&DS",
+        },
+        {
+          id: "keerthana",
+          name: "V. Keerthana",
+          role: "Student Coordinator · AI&DS",
+        },
+        {
+          id: "syed-ishaaq",
+          name: "Syed Ishaaq",
+          role: "Student Coordinator · AI&DS",
+        },
+        {
+          id: "joshitha",
+          name: "N. Joshitha",
+          role: "Student Coordinator · CSE | Mtech",
+        },
         {
           id: "anbu-mohamed",
           name: "A. Anbu Mohamed",
-          role: "Student Coordinator",
+          role: "Student Coordinator · AI&DS | Mtech",
         },
       ],
     },
     {
       id: "technical-coords",
       label: "Technical Event Coordinators",
-      members: [],
+      members: [
+        {
+          id: "code-break-coordinator",
+          name: "Mohamed Ashfaq Kuddus",
+          role: "Code Break · Event Coordinator",
+        },
+        {
+          id: "code-canvas-coordinator",
+          name: "Mohammed Aadil",
+          role: "Code Canvas · Event Coordinator",
+        },
+        {
+          id: "neural-nexus-coordinator",
+          name: "Yusrah Sakina",
+          role: "Neural Nexus · Event Coordinator",
+        },
+        {
+          id: "binary-battle-coordinator",
+          name: "Jazlin I",
+          role: "Binary Battle · Event Coordinator",
+        },
+        {
+          id: "game-craft-coordinator",
+          name: "Anbu Mohamad",
+          role: "Game Craft · Event Coordinator",
+        },
+        {
+          id: "tech-talks-coordinator",
+          name: "Madhumitha P",
+          role: "Tech Talks · Event Coordinator",
+        },
+        {
+          id: "cyber-breach-coordinator",
+          name: "Mohamed Fawaz",
+          role: "Cyber Breach · Event Coordinator",
+        },
+        {
+          id: "prompt-pop-coordinator",
+          name: "Mohammed Omer Akil",
+          role: "Prompt Pop · Event Coordinator",
+        },
+      ],
     },
     {
       id: "nontechnical-coords",
       label: "Non-Technical Event Coordinators",
-      members: [],
+      members: [
+        {
+          id: "shutter-verse-coordinator",
+          name: "Nandhana Priya.S",
+          role: "Shutter Verse · Event Coordinator",
+        },
+        {
+          id: "clue-code-coordinator",
+          name: "Md. Ashfaque Ahamed",
+          role: "Clue Code · Event Coordinator",
+        },
+        {
+          id: "trashion-coordinator",
+          name: "N. Joshitha",
+          role: "Trashion · Event Coordinator",
+        },
+        {
+          id: "voice-over-coordinator",
+          name: "Keerthana V",
+          role: "The Voice Over · Event Coordinator",
+        },
+        {
+          id: "bgmi-coordinator",
+          name: "Achish G",
+          role: "BGMI · Event Coordinator",
+        },
+        {
+          id: "fifa-coordinator",
+          name: "Nithishwaran",
+          role: "FIFA · Event Coordinator",
+        },
+        {
+          id: "valorant-coordinator",
+          name: "Nithish Kumar S",
+          role: "Valorant · Event Coordinator",
+        },
+        {
+          id: "bid-wars-coordinator",
+          name: "Syed Siddique Ahmed",
+          role: "Bid Wars · Event Coordinator",
+        },
+      ],
     },
   ] as CoordinatorGroup[],
   socialLinks: [
     {
       label: "Instagram",
-      handle: "@talent.hunt.2k26",
-      url: "https://www.instagram.com/talent.hunt.2k26/",
+      handle: "@talent_hunt_2k26",
+      url: "https://www.instagram.com/talent_hunt_2k26/",
     },
   ],
   nav: [

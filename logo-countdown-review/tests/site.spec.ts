@@ -259,27 +259,3 @@ test("responsive widths and local-only network requests", async ({ page }) => {
   }
   expect([...external]).toEqual([]);
 });
-
-test("carousel rotates automatically and pauses on hover and focus", async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/");
-  const carousel = page.getByRole("region", { name: "Featured events" });
-  await carousel.scrollIntoViewIfNeeded();
-  await page.mouse.move(0, 0);
-  await expect(
-    carousel.getByRole("heading", { name: /Shutter Verse/ }),
-  ).toBeVisible({ timeout: 7500 });
-  await carousel.hover();
-  await page.waitForTimeout(5700);
-  await expect(
-    carousel.getByRole("heading", { name: /Shutter Verse/ }),
-  ).toBeVisible();
-  await carousel.getByRole("button", { name: "Next featured event" }).focus();
-  await page.mouse.move(0, 0);
-  await page.waitForTimeout(5700);
-  await expect(
-    carousel.getByRole("heading", { name: /Shutter Verse/ }),
-  ).toBeVisible();
-});

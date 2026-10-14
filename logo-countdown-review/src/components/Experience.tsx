@@ -102,24 +102,17 @@ function Opening({ dismiss }: { dismiss: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
           >
-            <span /> THE STAGE IS YOURS
+            <span /> CSE DEPARTMENT PRESENTS
           </motion.p>
           <h2 className="opening-title" aria-label="Talent Hunt 2K26">
-            {["TALENT", "HUNT."].map((word, index) => (
-              <span className="opening-mask" key={word} aria-hidden="true">
-                <motion.span
-                  initial={reduced ? false : { y: "110%", rotate: 3 }}
-                  animate={{ y: "0%", rotate: 0 }}
-                  transition={{
-                    duration: 1.15,
-                    delay: 0.22 + index * 0.16,
-                    ease: editorialEase,
-                  }}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
+            <motion.span
+              className="opening-crest"
+              initial={reduced ? false : { opacity: 0, y: 24, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1.15, delay: 0.22, ease: editorialEase }}
+            >
+              <BrandWordmark size="hero" />
+            </motion.span>
           </h2>
           <motion.div
             className="opening-caption"
@@ -129,9 +122,8 @@ function Opening({ dismiss }: { dismiss: () => void }) {
           >
             <span className="opening-edition">2K26</span>
             <p id="opening-description">
-              Sixteen competitions.
-              <br />
-              One moment to make yours.
+              A stage for skills, ideas
+              <br />& fearless creativity.
             </p>
           </motion.div>
         </div>

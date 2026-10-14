@@ -5,7 +5,6 @@ import {
   siteData,
   type Category,
   type CoordinatorGroup,
-  type EventRecord,
 } from "../data/siteData";
 import {
   assetExists,
@@ -120,100 +119,6 @@ function SectionHeading({
     </Reveal>
   );
 }
-export function Featured() {
-  const list = siteData.featuredIds
-    .map((id) => siteData.events.find((e) => e.id === id))
-    .filter((e): e is EventRecord => !!e);
-  const [index, setIndex] = useState(0);
-  const [hover, setHover] = useState(false);
-  const [focus, setFocus] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const reduced = useReducedMotion();
-  useEffect(() => {
-    if (list.length < 2 || hover || focus || paused || reduced) return;
-    const timer = window.setInterval(
-      () => setIndex((i) => (i + 1) % list.length),
-      5500,
-    );
-    return () => clearInterval(timer);
-  }, [list.length, hover, focus, paused, reduced]);
-  if (!list.length) return null;
-  const event = list[index % list.length];
-  return (
-    <section
-      className="featured"
-      aria-roledescription="carousel"
-      aria-label="Featured events"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onFocus={() => setFocus(true)}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget)) setFocus(false);
-      }}
-    >
-      <div className="featured-copy">
-        <Eyebrow>IN THE SPOTLIGHT</Eyebrow>
-        <h2>
-          FIND YOUR
-          <br />
-          <em>MAIN EVENT.</em>
-        </h2>
-        <div className="carousel-controls">
-          <button
-            aria-label="Previous featured event"
-            onClick={() => setIndex((i) => (i - 1 + list.length) % list.length)}
-          >
-            ←
-          </button>
-          <span>
-            {String(index + 1).padStart(2, "0")} /{" "}
-            {String(list.length).padStart(2, "0")}
-          </span>
-          <button
-            aria-label="Next featured event"
-            onClick={() => setIndex((i) => (i + 1) % list.length)}
-          >
-            →
-          </button>
-          <button
-            className="carousel-pause"
-            aria-pressed={paused}
-            onClick={() => setPaused(!paused)}
-          >
-            {paused ? "Play" : "Pause"}
-          </button>
-        </div>
-      </div>
-      <div
-        className="featured-event"
-        aria-live={paused || hover || focus ? "polite" : "off"}
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={event.id}
-            initial={{ opacity: reduced ? 1 : 0, x: reduced ? 0 : 45 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: reduced ? 1 : 0, x: reduced ? 0 : -35 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Link to={`/events/${event.slug}`}>
-              <div className="featured-art">
-                <EventArt event={event} shared={false} />
-              </div>
-              <span className="micro">
-                {siteData.categories[event.category].short}
-              </span>
-              <h3>
-                {event.name}
-                <Arrow />
-              </h3>
-            </Link>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
-  );
-}
 export function ScheduleContent({ preview = false }: { preview?: boolean }) {
   const entries = preview ? siteData.schedule.slice(0, 3) : siteData.schedule;
   return (
@@ -279,11 +184,11 @@ export function Home() {
         </Entrance>
         <div className="hero-body">
           <div className="hero-copy">
-            <Entrance delay={0.12}>
+            <Entrance delay={0.12} className="hero-heading-kicker">
               <Eyebrow>{siteData.copy.heroEyebrow}</Eyebrow>
             </Entrance>
             <Entrance delay={0.22}>
-              <h1>
+              <h1 aria-label="Talent Hunt 2K26">
                 <span>TALENT</span>
                 <span className="hero-hunt">
                   HUNT<span className="year">2K26</span>
@@ -380,9 +285,6 @@ export function Home() {
         />
         <EventGrid events={inCategory("non-technical")} />
       </section>
-      <Reveal>
-        <Featured />
-      </Reveal>
       <section className="section">
         <Reveal className="section-heading">
           <div>
