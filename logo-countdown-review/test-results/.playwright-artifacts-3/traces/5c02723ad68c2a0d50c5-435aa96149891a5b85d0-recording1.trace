@@ -1,0 +1,1 @@
+{"version":10,"type":"context-options","origin":"library","browserName":"","playwrightVersion":"1.64.0","options":{},"platform":"win32","wallTime":1791948786440,"monotonicTime":22568.532,"sdkLanguage":"javascript","title":"site.spec.ts:38 › every public route loads, hydrates, has one h1 and correct metadata without console errors"}

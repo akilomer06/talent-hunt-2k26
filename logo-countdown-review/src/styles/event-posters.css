@@ -1,0 +1,830 @@
+/* Event posters: premium cyber-tactile glassmorphism with layered 3D depth */
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.event-card {
+  --poster-accent: var(--blue-text);
+  --poster-fill: var(--blue);
+  --poster-glow: rgba(0, 105, 243, 0.45);
+  --poster-border: rgba(0, 217, 255, 0.45);
+  --poster-card-bg: linear-gradient(168deg, rgba(20, 26, 36, 0.88) 0%, rgba(12, 16, 22, 0.96) 65%, rgba(8, 10, 14, 0.99) 100%);
+  perspective: 1200px;
+  position: relative;
+}
+
+.event-card.card-orange {
+  --poster-accent: var(--orange-text);
+  --poster-fill: var(--orange);
+  --poster-glow: rgba(255, 91, 25, 0.45);
+  --poster-border: rgba(255, 153, 106, 0.5);
+  --poster-card-bg: linear-gradient(168deg, rgba(32, 20, 16, 0.88) 0%, rgba(18, 12, 10, 0.96) 65%, rgba(10, 8, 8, 0.99) 100%);
+}
+
+.event-card > a {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  background: var(--poster-card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  box-shadow:
+    0 12px 35px -8px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  transition:
+    transform 450ms var(--ease),
+    border-color 350ms var(--ease),
+    box-shadow 450ms var(--ease),
+    background 350ms;
+}
+
+/* Ambient pointer spotlight */
+.event-card > a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    460px circle at var(--pointer-x, 50%) var(--pointer-y, 25%),
+    rgba(255, 255, 255, 0.08),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 350ms var(--ease);
+}
+
+/* Top luminous edge highlight */
+.event-card > a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--poster-accent) 50%, transparent 100%);
+  opacity: 0;
+  z-index: 6;
+  transform: scaleX(0.3);
+  transition: opacity 350ms var(--ease), transform 600ms var(--ease);
+}
+
+.event-card > a:hover,
+.event-card > a:focus-visible {
+  border-color: var(--poster-border);
+  transform: translateY(-10px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale3d(1.012, 1.012, 1.012);
+  box-shadow:
+    0 28px 70px -15px var(--poster-glow),
+    0 0 25px -5px var(--poster-border),
+    inset 0 1px 1px rgba(255, 255, 255, 0.28);
+}
+
+.event-card > a:hover::before,
+.event-card > a:focus-visible::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.event-card > a:hover::after,
+.event-card > a:focus-visible::after {
+  opacity: 1;
+}
+
+/* Topline badge controls */
+.card-topline {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  z-index: 6;
+}
+
+.card-category {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(9, 12, 16, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+}
+
+.card-category > span,
+.card-category-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--poster-accent);
+  box-shadow: 0 0 8px var(--poster-accent);
+  animation: pulse-glow 2.4s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.35); box-shadow: 0 0 14px var(--poster-accent); }
+}
+
+.card-edition {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  background: rgba(9, 12, 16, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: var(--display);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.card-edition-num {
+  color: var(--poster-accent);
+  font-weight: 800;
+}
+
+/* Event Artwork Section */
+.event-art {
+  --art-color: var(--blue);
+  --art-bright: var(--blue-text);
+  height: 275px;
+  background: radial-gradient(circle at 50% 60%, #101c30 0%, #080d15 80%);
+  color: var(--text);
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  transition: background 500ms var(--ease);
+}
+
+.event-art.art-orange {
+  --art-color: var(--orange);
+  --art-bright: var(--orange-text);
+  background: radial-gradient(circle at 50% 60%, #2e150a 0%, #0d0806 80%);
+}
+
+.art-grid {
+  position: absolute;
+  inset: -15%;
+  background-image:
+    linear-gradient(#ffffff12 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff12 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.22;
+  transform: perspective(500px) rotateX(42deg) rotate(-16deg) scale(1.3);
+  transition: transform 700ms var(--ease);
+}
+
+.event-card a:hover .art-grid,
+.event-card a:focus-visible .art-grid {
+  transform: perspective(500px) rotateX(45deg) rotate(-12deg) scale(1.4);
+}
+
+.art-light {
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(
+    ellipse at 50% 55%,
+    color-mix(in srgb, var(--art-color), transparent 45%),
+    transparent 55%
+  );
+  filter: blur(10px);
+  animation: ambient-pulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-pulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.art-sculpture {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: 68px;
+  left: calc(50% - 90px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 28% 22%,
+    rgba(255, 255, 255, 0.95) 0%,
+    var(--art-bright) 22%,
+    var(--art-color) 52%,
+    #050810 92%
+  );
+  box-shadow:
+    inset 2px 3px 6px rgba(255, 255, 255, 0.65),
+    0 22px 50px rgba(0, 0, 0, 0.85),
+    inset -12px -12px 28px rgba(0, 0, 0, 0.7);
+  transform: rotate(-18deg) scaleX(1.05);
+  transition:
+    transform 750ms var(--ease),
+    border-radius 750ms var(--ease),
+    filter 750ms var(--ease);
+}
+
+.event-art > svg {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  top: 88px;
+  left: calc(50% - 70px);
+  stroke: var(--text);
+  filter: drop-shadow(0 0 14px var(--art-bright));
+  z-index: 3;
+  transition: transform 650ms var(--ease), filter 650ms;
+}
+
+.art-orbit {
+  position: absolute;
+  width: 270px;
+  height: 145px;
+  top: 86px;
+  left: calc(50% - 135px);
+  border: 1px dashed var(--art-bright);
+  border-radius: 50%;
+  transform: rotate(-35deg);
+  opacity: 0.5;
+  z-index: 1;
+  transition: transform 900ms var(--ease), opacity 400ms;
+  animation: orbit-float 18s ease-in-out infinite alternate;
+}
+
+@keyframes orbit-float {
+  0% { transform: rotate(-35deg) scale(1); }
+  100% { transform: rotate(-20deg) scale(1.06); }
+}
+
+.art-orbit-second {
+  position: absolute;
+  transform: rotate(40deg);
+  opacity: 0.28;
+  width: 300px;
+  height: 165px;
+  left: calc(50% - 150px);
+  top: 76px;
+  border-style: solid;
+  animation: orbit-float-2 22s ease-in-out infinite alternate;
+}
+
+@keyframes orbit-float-2 {
+  0% { transform: rotate(40deg) scale(1); }
+  100% { transform: rotate(24deg) scale(1.04); }
+}
+
+.art-number {
+  position: absolute;
+  top: 75px;
+  right: 12px;
+  font-family: var(--display);
+  font-size: 155px;
+  font-weight: 800;
+  opacity: 0.13;
+  color: var(--art-bright);
+  letter-spacing: -0.04em;
+  line-height: 0.8;
+  pointer-events: none;
+  transition: opacity 400ms, transform 600ms var(--ease);
+}
+
+.event-card a:hover .art-number {
+  opacity: 0.22;
+  transform: scale(1.05) translateX(-5px);
+}
+
+.art-type {
+  position: absolute;
+  bottom: 12px;
+  left: 10px;
+  max-width: 68%;
+  font: 800 clamp(36px, 4.2vw, 54px)/0.86 var(--display);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--art-bright);
+  opacity: 0.22;
+  white-space: normal;
+  text-wrap: balance;
+  pointer-events: none;
+  transition: opacity 400ms, transform 600ms var(--ease);
+}
+
+.event-card a:hover .art-type {
+  opacity: 0.35;
+  transform: translateX(6px);
+}
+
+.art-caption {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: 62px;
+  display: flex;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--art-bright);
+  align-items: center;
+  opacity: 0.85;
+}
+
+.art-crosshair {
+  font-size: 16px;
+  margin-right: auto;
+  color: var(--art-bright);
+}
+
+.art-barcode {
+  width: 36px;
+  height: 11px;
+  margin-left: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    currentColor 0 1px,
+    transparent 1px 3px,
+    currentColor 3px 5px,
+    transparent 5px 7px
+  );
+  opacity: 0.85;
+}
+
+/* Alternate composition styles */
+.art-1 {
+  background: radial-gradient(circle at 50% 60%, var(--blue-deep) 0%, #070c14 80%);
+}
+.art-1.art-orange {
+  background: radial-gradient(circle at 50% 60%, #8c2a0b 0%, #0d0705 80%);
+}
+.art-1 .art-sculpture {
+  border-radius: 24px;
+  transform: rotate(-14deg) scale(0.96);
+  background: linear-gradient(
+    140deg,
+    var(--art-bright),
+    var(--art-color) 40%,
+    #06080f 130%
+  );
+}
+.art-1 .art-orbit {
+  border-radius: 24px;
+  width: 235px;
+  height: 205px;
+  left: calc(50% - 117.5px);
+  top: 68px;
+  transform: rotate(14deg);
+}
+.art-1 .art-orbit-second {
+  transform: rotate(32deg);
+}
+
+.art-2 .art-sculpture {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  transform: rotate(16deg);
+}
+.art-2 .art-orbit {
+  width: 235px;
+  height: 235px;
+  top: 48px;
+  left: calc(50% - 117.5px);
+  border-style: dashed;
+  transform: rotate(10deg);
+}
+.art-2 .art-orbit-second {
+  width: 295px;
+  height: 295px;
+  top: 18px;
+  left: calc(50% - 147.5px);
+  transform: rotate(-25deg);
+}
+
+.art-3 .art-sculpture {
+  border-radius: 12px;
+  transform: rotate(45deg) scale(0.85);
+  background: linear-gradient(
+    135deg,
+    var(--art-bright),
+    var(--art-color) 52%,
+    #050810
+  );
+}
+.art-3 .art-orbit {
+  border-radius: 4px;
+  border-width: 1px;
+  width: 185px;
+  height: 185px;
+  top: 80px;
+  left: calc(50% - 92.5px);
+  transform: rotate(65deg);
+}
+.art-3 .art-orbit-second {
+  transform: rotate(25deg);
+  width: 245px;
+  height: 245px;
+  top: 50px;
+  left: calc(50% - 122.5px);
+}
+
+/* Hover dynamics on artwork */
+.event-card a:hover .art-sculpture,
+.event-card a:focus-visible .art-sculpture {
+  transform: rotate(6deg) scale(1.12);
+  filter: drop-shadow(0 0 24px var(--poster-glow));
+}
+
+.event-card a:hover .art-orbit,
+.event-card a:focus-visible .art-orbit {
+  transform: rotate(8deg) scale(1.08);
+  opacity: 0.85;
+}
+
+.event-card a:hover .art-orbit-second,
+.event-card a:focus-visible .art-orbit-second {
+  transform: rotate(78deg) scale(1.05);
+  opacity: 0.55;
+}
+
+.event-card a:hover .event-art > svg,
+.event-card a:focus-visible .event-art > svg {
+  transform: translateY(-8px) scale(1.12);
+  filter: drop-shadow(0 0 25px var(--art-bright));
+}
+
+/* Card Content / Copy */
+.card-copy {
+  position: relative;
+  padding: 6px 26px 24px;
+  margin-top: -10px;
+  border: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-badges-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.card-chip {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 9px;
+  border-radius: 5px;
+  transition: color 250ms, border-color 250ms, background 250ms;
+}
+
+.event-card a:hover .card-chip {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.card-venue-chip {
+  color: var(--poster-accent);
+  background: rgba(0, 105, 243, 0.12);
+  border-color: rgba(0, 217, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 800;
+}
+
+.card-orange .card-venue-chip {
+  color: var(--orange-text);
+  background: rgba(255, 91, 25, 0.12);
+  border-color: rgba(255, 153, 106, 0.35);
+}
+
+.event-card a:hover .card-venue-chip {
+  background: rgba(0, 105, 243, 0.22);
+  border-color: rgba(0, 217, 255, 0.55);
+  box-shadow: 0 0 10px rgba(0, 105, 243, 0.35);
+}
+
+.card-orange a:hover .card-venue-chip,
+.event-card.card-orange a:hover .card-venue-chip {
+  background: rgba(255, 91, 25, 0.22);
+  border-color: rgba(255, 153, 106, 0.6);
+  box-shadow: 0 0 10px rgba(255, 91, 25, 0.35);
+}
+
+.card-copy h3 {
+  font-family: var(--display);
+  font-size: clamp(34px, 2.7vw, 44px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  color: var(--text);
+  transition: color 300ms, transform 300ms var(--ease);
+}
+
+.event-card a:hover .card-copy h3 {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.card-copy p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0 0 18px;
+  flex: 1;
+}
+
+/* Card Action / Footer */
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-top: auto;
+  transition: color 300ms, border-color 300ms;
+}
+
+.card-action-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-action-label > span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.card-action-sub {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.event-card a:hover .card-action,
+.event-card a:focus-visible .card-action {
+  color: var(--text);
+  border-top-color: var(--poster-border);
+}
+
+.card-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+  color: var(--text);
+  overflow: hidden;
+  transition:
+    background 300ms var(--ease),
+    color 300ms var(--ease),
+    border-color 300ms var(--ease),
+    box-shadow 300ms var(--ease),
+    transform 300ms var(--ease);
+}
+
+.card-arrow > span {
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 350ms var(--ease);
+}
+
+.event-card a:hover .card-arrow,
+.event-card a:focus-visible .card-arrow {
+  color: #fff;
+  background: var(--poster-fill);
+  border-color: var(--poster-accent);
+  box-shadow: 0 0 18px var(--poster-glow);
+  transform: scale(1.1);
+}
+
+.event-card a:hover .card-arrow > span {
+  animation: arrow-launch 450ms var(--ease);
+}
+
+@keyframes arrow-launch {
+  49% {
+    transform: translate(18px, -18px);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-18px, 18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+/* Hero artwork on detail pages */
+.event-art.art-hero {
+  height: 440px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  mask-image: none;
+  -webkit-mask-image: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.art-hero .art-sculpture {
+  top: 110px;
+  width: 230px;
+  height: 230px;
+  left: calc(50% - 115px);
+}
+
+.art-hero > svg {
+  top: 135px;
+  width: 180px;
+  height: 180px;
+  left: calc(50% - 90px);
+}
+
+.art-hero .art-orbit {
+  top: 145px;
+}
+
+.art-hero .art-orbit-second {
+  top: 105px;
+}
+
+.art-hero .art-type {
+  bottom: 28px;
+  left: 20px;
+  max-width: 75%;
+  font-size: clamp(56px, 7vw, 100px);
+  line-height: 0.88;
+}
+
+.art-hero .art-caption {
+  top: 24px;
+}
+
+.art-hero .art-number {
+  font-size: 225px;
+  top: 80px;
+}
+
+/* Featured carousel card */
+.featured-art {
+  height: 310px;
+  border-radius: 14px;
+  background: var(--bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.featured-art .event-art {
+  height: 310px;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.featured-art .art-caption {
+  top: 20px;
+}
+
+.featured-event {
+  overflow: hidden;
+}
+
+/* Responsive queries */
+@media (max-width: 1100px) {
+  .event-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px;
+  }
+  .card-copy h3 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 650px) {
+  .event-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .event-art {
+    height: 260px;
+  }
+  .card-copy h3 {
+    font-size: 38px;
+  }
+  .card-copy {
+    padding: 0 20px 20px;
+  }
+  .card-topline {
+    left: 18px;
+    right: 18px;
+    top: 18px;
+  }
+  .card-category,
+  .card-edition {
+    font-size: 10px;
+  }
+  .card-arrow {
+    width: 38px;
+    height: 38px;
+  }
+  .event-art.art-hero {
+    height: 350px;
+  }
+  .art-hero .art-sculpture {
+    top: 90px;
+    width: 195px;
+    height: 195px;
+    left: calc(50% - 98px);
+  }
+  .art-hero > svg {
+    top: 115px;
+    width: 150px;
+    height: 150px;
+    left: calc(50% - 75px);
+  }
+  .art-hero .art-type {
+    font-size: clamp(40px, 8vw, 68px);
+    bottom: 20px;
+    left: 14px;
+    max-width: 80%;
+  }
+  .art-hero .art-number {
+    font-size: 175px;
+  }
+  .featured-art,
+  .featured-art .event-art {
+    height: 280px;
+  }
+}
+
+@media (hover: none) {
+  .event-card > a {
+    transform: none;
+  }
+  .event-card > a::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-poster > a {
+    animation: none;
+  }
+  .event-card > a {
+    transform: none !important;
+  }
+  .event-card a:hover .art-sculpture,
+  .event-card a:focus-visible .art-sculpture,
+  .event-card a:hover .art-orbit,
+  .event-card a:focus-visible .art-orbit,
+  .event-card a:hover .event-art > svg,
+  .event-card a:focus-visible .event-art > svg {
+    transform: none;
+  }
+  .card-arrow > span {
+    animation: none !important;
+  }
+  .art-light {
+    animation: none;
+  }
+}
