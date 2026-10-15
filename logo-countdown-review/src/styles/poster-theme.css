@@ -465,13 +465,13 @@ em {
   color-scheme: dark;
 }
 .event-card.card-orange {
-  --muted: #f0d9cb;
-  --card-body: #49352d;
-  --card-badge: #51301fe8;
-  --poster-accent: #ffdbbc;
-  --poster-fill: #ffad70;
-  --poster-border: #ffc391;
-  --poster-glow: #ff97532b;
+  --muted: #e6ddd5;
+  --card-body: #2b2d32;
+  --card-badge: #292b30ed;
+  --poster-accent: #ffc18a;
+  --poster-fill: #ff922e;
+  --poster-border: #ffa64d;
+  --poster-glow: #ff8a242b;
 }
 .event-card > a {
   background: var(--card-body);
@@ -613,9 +613,9 @@ em {
 }
 .event-card.card-orange a:hover .card-arrow,
 .event-card.card-orange a:focus-visible .card-arrow {
-  background: var(--orange);
+  background: var(--poster-fill);
   color: var(--ink);
-  border-color: var(--orange);
+  border-color: var(--poster-fill);
 }
 .event-art.art-hero,
 .featured-art {
@@ -635,8 +635,8 @@ em {
 }
 .event-card .event-art.art-orange {
   background:
-    radial-gradient(ellipse at 50% 35%, #ffd2a260, transparent 75%),
-    linear-gradient(145deg, #dc8a5d, #ab5839);
+    radial-gradient(ellipse at 50% 30%, #ffce6a33, transparent 70%),
+    linear-gradient(145deg, #ed8428, #c5521e);
 }
 .event-card .art-grid {
   opacity: 0.4;
@@ -652,11 +652,11 @@ em {
     0 12px 28px #152e4e40;
 }
 .event-card .art-orange .art-sculpture {
-  background: #f5ad76;
-  border-color: #ffe7c999;
+  background: #ffb85c;
+  border-color: #ffe0a18c;
   box-shadow:
-    inset 0 0 30px #ffe3b533,
-    0 12px 28px #65351d40;
+    inset 0 0 30px #ffe1a126,
+    0 12px 28px #70331540;
 }
 .event-card .event-art > svg,
 .event-card .event-art.art-orange > svg {
@@ -664,10 +664,10 @@ em {
   filter: drop-shadow(0 4px 12px #0005);
 }
 .event-card .event-art.art-orange > svg {
-  stroke: #4b291b;
+  stroke: #392316;
 }
 .event-card .art-orange .art-caption {
-  color: #4b291b;
+  color: #392316;
 }
 .event-card .art-orange .art-crosshair {
   color: inherit;

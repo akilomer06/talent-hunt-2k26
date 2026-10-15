@@ -4,7 +4,7 @@ A complete backend-free event website built from the supplied official brochure.
 
 **Vercel project: [brainy6 / talent-hunt-2k26](https://vercel.com/brainy6/talent-hunt-2k26).** The current version includes the cream, blue, orange and black theme, original TH26 logo with text beside it, previous lettering-based brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
 
-Event cards use lighter blue and warm orange arcade panels with pointer tilt and animated artwork. The countdown uses rounded dark panels with animated digits. A black event ticker continuously scrolls all sixteen event names, with pause/resume controls; reduced-motion settings display a static, wrapping list instead.
+Event cards use lighter blue and tangerine-orange arcade artwork with pointer tilt and animations. Orange cards pair the warmer artwork with a neutral graphite information panel. The countdown uses rounded dark panels with animated digits. A black event ticker continuously scrolls all sixteen event names, with pause/resume controls; reduced-motion settings display a static, wrapping list instead.
 
 ## Run locally
 
