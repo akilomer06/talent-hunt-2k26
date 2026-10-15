@@ -12,6 +12,7 @@ import "./styles/event-posters.css";
 import "./styles/experience.css";
 import "./styles/brand-countdown.css";
 import "./styles/poster-theme.css";
+import "./styles/arena-motion.css";
 const root = document.getElementById("root")!;
 const app = (
   <BrowserRouter>

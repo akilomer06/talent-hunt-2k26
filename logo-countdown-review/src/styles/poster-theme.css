@@ -689,11 +689,7 @@ em {
   opacity: 0.3;
 }
 .event-card a:is(:hover, :focus-visible) .art-orbit {
-  animation: orbit-float 6s ease-in-out infinite alternate;
-}
-.event-card a:is(:hover, :focus-visible) .art-orbit-second {
-  animation-name: orbit-float-2;
-  animation-duration: 8s;
+  opacity: 0.6;
 }
 .event-card a:is(:hover, :focus-visible) .event-art > svg {
   transform: translateY(-8px) scale(1.05);

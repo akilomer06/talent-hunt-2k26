@@ -1,0 +1,214 @@
+/* Only decorative artwork loops; text and link targets stay still. */
+.event-collection {
+  --motion-accent: var(--blue);
+}
+.event-collection[data-category="non-technical"] {
+  --motion-accent: var(--orange-text);
+}
+.grid-motion-tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.grid-motion-tools > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font: 600 9px/1.4 var(--body);
+  letter-spacing: 0.09em;
+}
+.grid-motion-tools i {
+  width: 5px;
+  height: 5px;
+  background: var(--motion-accent);
+  border-radius: 50%;
+}
+.grid-motion-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 8px 13px;
+  color: var(--motion-accent);
+  background: #fbf6e9;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: 600 11px/1.3 var(--body);
+  transition:
+    background 200ms,
+    border-color 200ms;
+}
+.grid-motion-tools button:hover,
+.grid-motion-tools button:focus-visible {
+  background: var(--surface);
+  border-color: var(--motion-accent);
+}
+.grid-motion-tools button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+.event-card {
+  --card-loop-state: paused;
+}
+.event-card[data-motion-active="true"] {
+  --card-loop-state: running;
+}
+.event-collection[data-motion-paused="true"] .event-card {
+  --card-loop-state: paused;
+}
+.event-card .art-sculpture,
+.event-card .event-art > svg {
+  animation: arena-float 5.6s ease-in-out infinite;
+}
+.event-card .art-orbit {
+  animation: arena-orbit 22s linear infinite;
+}
+.event-card .art-orbit-second {
+  animation-direction: reverse;
+  animation-duration: 30s;
+}
+.event-card .art-grid {
+  animation: arena-grid 24s linear infinite;
+}
+.event-card .card-category-dot {
+  animation: arena-signal 3.2s ease-in-out infinite;
+}
+.event-card .card-power > span {
+  animation: arena-energy 1.9s ease-in-out infinite;
+}
+.event-card .card-power > span:nth-child(2) {
+  --bar-phase: -0.3s;
+}
+.event-card .card-power > span:nth-child(3) {
+  --bar-phase: -0.7s;
+}
+.event-card .card-power > span:nth-child(4) {
+  --bar-phase: -1.1s;
+}
+.event-card .card-power > span:nth-child(5) {
+  --bar-phase: -1.4s;
+}
+.event-card > a::before {
+  opacity: 0.85;
+  transform: none;
+  background-size: 200% 100%;
+  animation: arena-edge 5s linear infinite;
+}
+.event-card .art-scan {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(transparent, #f7f1df0a);
+  border-bottom: 1px solid #f7f1df66;
+  animation: arena-scan 7.5s linear infinite;
+}
+.event-card .art-sculpture,
+.event-card .event-art > svg,
+.event-card .art-orbit,
+.event-card .art-grid,
+.event-card .card-category-dot,
+.event-card .card-power > span,
+.event-card .art-scan,
+.event-card > a::before {
+  animation-delay: calc(var(--card-phase, 0s) + var(--bar-phase, 0s));
+  animation-play-state: var(--card-loop-state);
+}
+@keyframes arena-float {
+  0%,
+  100% {
+    translate: 0 2px;
+  }
+  50% {
+    translate: 0 -7px;
+  }
+}
+@keyframes arena-orbit {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes arena-grid {
+  to {
+    background-position: 36px 36px;
+  }
+}
+@keyframes arena-signal {
+  0%,
+  100% {
+    opacity: 0.65;
+    scale: 0.9;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.2;
+  }
+}
+@keyframes arena-energy {
+  0%,
+  100% {
+    transform: scaleY(0.38);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+@keyframes arena-edge {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes arena-scan {
+  0% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  15%,
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(290px);
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .grid-motion-tools {
+    justify-content: space-between;
+  }
+  .grid-motion-tools button {
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-card .art-sculpture,
+  .event-card .event-art > svg,
+  .event-card .art-orbit,
+  .event-card .art-grid,
+  .event-card .card-category-dot,
+  .event-card .card-power > span,
+  .event-card .art-scan,
+  .event-card > a::before {
+    animation: none !important;
+    translate: none;
+    rotate: none;
+    scale: none;
+  }
+  .event-card .art-scan {
+    display: none;
+  }
+}

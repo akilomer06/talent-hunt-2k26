@@ -10,7 +10,12 @@ import {
   type CSSProperties,
 } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 import { editorialEase } from "./Experience";
 import {
   siteData,
@@ -225,6 +230,7 @@ export function EventArt({
       <span className="art-sculpture" />
       <span className="art-orbit" />
       <span className="art-orbit art-orbit-second" />
+      {!hero && <span className="art-scan" />}
       <span className="art-type">{event.name}</span>
       <span className="art-number">{String(event.order).padStart(2, "0")}</span>
       {event.artwork && assetExists(event.artwork) ? (
@@ -250,12 +256,16 @@ export function EventArt({
 }
 export function EventCard({ event }: { event: EventRecord }) {
   const reduced = useReducedMotion();
+  const cardRef = useRef<HTMLElement>(null);
+  const visible = useInView(cardRef, { margin: "80px", amount: 0.05 });
   const reset = (element: HTMLAnchorElement) => {
     element.style.setProperty("--tilt-x", "0deg");
     element.style.setProperty("--tilt-y", "0deg");
   };
   return (
     <motion.article
+      ref={cardRef}
+      data-motion-active={visible && !reduced}
       layout={!reduced}
       initial={false}
       animate={{ opacity: 1 }}
@@ -269,7 +279,12 @@ export function EventCard({ event }: { event: EventRecord }) {
         layout: { duration: 0.35 },
       }}
       className={`event-card ${event.category === "non-technical" ? "card-orange" : ""}`}
-      style={{ "--card-order": (event.order - 1) % 3 } as CSSProperties}
+      style={
+        {
+          "--card-order": (event.order - 1) % 3,
+          "--card-phase": `${(event.order - 1 + (event.category === "non-technical" ? 8 : 0)) * -0.63}s`,
+        } as CSSProperties
+      }
     >
       <Link
         to={`/events/${event.slug}`}
@@ -333,13 +348,51 @@ export function EventCard({ event }: { event: EventRecord }) {
   );
 }
 export function EventGrid({ events }: { events: EventRecord[] }) {
+  const [paused, setPaused] = useState(false);
+  const reduced = useReducedMotion();
+  const gridId = useId();
+  const category = events[0]?.category ?? "technical";
+  const categoryLabel = siteData.categories[category].short;
   return (
-    <div className="event-grid">
-      <AnimatePresence initial={false}>
-        {events.map((e) => (
-          <EventCard key={e.id} event={e} />
-        ))}
-      </AnimatePresence>
+    <div
+      className="event-collection"
+      data-category={category}
+      data-motion-paused={paused || !!reduced}
+    >
+      <div className="grid-motion-tools">
+        <span>
+          <i aria-hidden="true" />
+          CARD ANIMATIONS
+        </span>
+        <button
+          type="button"
+          aria-label={
+            reduced
+              ? `${categoryLabel} card animations disabled`
+              : `${paused ? "Resume" : "Pause"} ${categoryLabel.toLowerCase()} card animations`
+          }
+          aria-controls={gridId}
+          aria-pressed={paused}
+          disabled={!!reduced}
+          onClick={() => setPaused((value) => !value)}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
+            {paused ? (
+              <path d="m5 3 8 5-8 5Z" fill="currentColor" />
+            ) : (
+              <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="2" />
+            )}
+          </svg>
+          {reduced ? "Motion off" : paused ? "Resume motion" : "Pause motion"}
+        </button>
+      </div>
+      <div className="event-grid" id={gridId}>
+        <AnimatePresence initial={false}>
+          {events.map((e) => (
+            <EventCard key={e.id} event={e} />
+          ))}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

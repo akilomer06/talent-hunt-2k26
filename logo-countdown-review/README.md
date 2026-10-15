@@ -6,6 +6,8 @@ A complete backend-free event website built from the supplied official brochure.
 
 Event cards use cobalt-blue and tangerine-orange arcade artwork with brighter icon shapes, pointer tilt, and animations. Both card groups use neutral graphite information panels. The countdown uses rounded dark panels with animated digits. A black event ticker continuously scrolls all sixteen event names, with pause/resume controls; reduced-motion settings display a static, wrapping list instead.
 
+All sixteen cards continuously animate their floating artwork, rotating rings, scanning lines, energy bars, and edge highlights while visible. Each category has a pause/resume control. Off-screen cards pause automatically, and reduced-motion preferences disable these loops.
+
 ## Run locally
 
 Requirements: Node.js 22.12+ (Node 24 recommended), npm, and a modern browser. Development was verified on Windows with Node 24.18.0 and npm 11.16.0.
