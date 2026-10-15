@@ -4,6 +4,8 @@ A complete backend-free event website built from the supplied official brochure.
 
 **Vercel project: [brainy6 / talent-hunt-2k26](https://vercel.com/brainy6/talent-hunt-2k26).** The current version includes the cream, blue, orange and black theme, original TH26 logo with text beside it, previous lettering-based brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
 
+Event cards use rounded black arcade panels with pointer tilt, animated artwork, and blue/orange highlights. The countdown uses rounded dark panels with animated digits. A black event ticker continuously scrolls all sixteen event names, with pause/resume controls; reduced-motion settings display a static, wrapping list instead.
+
 ## Run locally
 
 Requirements: Node.js 22.12+ (Node 24 recommended), npm, and a modern browser. Development was verified on Windows with Node 24.18.0 and npm 11.16.0.

@@ -384,7 +384,7 @@
 .ticker-track > span {
   flex: 0 0 auto;
 }
-.ticker:hover .ticker-track {
+.ticker-window:hover .ticker-track {
   animation-play-state: paused;
 }
 @keyframes editorial-ticker {

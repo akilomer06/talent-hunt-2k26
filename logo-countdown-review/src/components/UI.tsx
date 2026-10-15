@@ -297,6 +297,13 @@ export function EventCard({ event }: { event: EventRecord }) {
           </span>
         </div>
         <EventArt event={event} />
+        <span className="card-power" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </span>
         <div className="card-copy">
           <div className="card-badges-row">
             <span className="card-chip">2026 EDITION</span>
@@ -314,7 +321,7 @@ export function EventCard({ event }: { event: EventRecord }) {
           <span className="card-action">
             <span className="card-action-label">
               <span>Explore Event</span>
-              <span className="card-action-sub">Brochure Official</span>
+              <span className="card-action-sub">Select your challenge</span>
             </span>
             <span className="card-arrow">
               <Arrow />

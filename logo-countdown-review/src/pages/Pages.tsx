@@ -41,6 +41,7 @@ export function useNow() {
 }
 export function DateStrip() {
   const now = useNow();
+  const reduced = useReducedMotion();
   const value = now === null ? null : countdown(siteData.countdown, now);
   return (
     <section className="date-strip" aria-label="Event date">
@@ -66,7 +67,12 @@ export function DateStrip() {
             >
               {(["days", "hours", "minutes", "seconds"] as const).map((key) => (
                 <div key={key}>
-                  <motion.strong initial={false}>
+                  <motion.strong
+                    key={`${key}-${value[key]}`}
+                    initial={reduced ? false : { y: 7, opacity: 0.5 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: reduced ? 0 : 0.24 }}
+                  >
                     {String(value[key]).padStart(2, "0")}
                   </motion.strong>
                   <span>{key}</span>
@@ -161,6 +167,58 @@ export function ScheduleContent({ preview = false }: { preview?: boolean }) {
     </div>
   );
 }
+function EventTicker() {
+  const [paused, setPaused] = useState(false);
+  const reduced = useReducedMotion();
+  return (
+    <section className="ticker" aria-label="All 16 events">
+      <div className="ticker-controls">
+        <span>
+          <i aria-hidden="true" />
+          16 EVENTS / ONE STAGE
+        </span>
+        <button
+          type="button"
+          aria-label={paused ? "Resume event ticker" : "Pause event ticker"}
+          aria-pressed={paused}
+          disabled={!!reduced}
+          onClick={() => setPaused((value) => !value)}
+        >
+          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+            {paused ? (
+              <path d="m5 3 8 5-8 5Z" fill="currentColor" />
+            ) : (
+              <path d="M5 3v10M11 3v10" stroke="currentColor" strokeWidth="2" />
+            )}
+          </svg>
+          {reduced ? "Motion off" : paused ? "Resume" : "Pause"}
+        </button>
+      </div>
+      <p className="sr-only">
+        {siteData.events.map((event) => event.name).join(", ")}
+      </p>
+      <div className="ticker-window" aria-hidden="true">
+        <div className={`ticker-track${paused ? " is-paused" : ""}`}>
+          {[0, 1].map((copy) => (
+            <div className="ticker-group" data-copy={copy} key={copy}>
+              {siteData.events.map((event, index) => (
+                <span
+                  className={`ticker-event ticker-${event.category}`}
+                  data-number={String(index + 1).padStart(2, "0")}
+                  key={event.id}
+                >
+                  {event.name}
+                  <b aria-hidden="true">✦</b>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   return (
     <>
@@ -262,13 +320,7 @@ export function Home() {
           <BrochureLink />
         </Reveal>
       </section>
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
-          {[0, 1].map((copy) => (
-            <span key={copy}>THINK. CREATE. COMPETE. REPEAT. ↗&nbsp;</span>
-          ))}
-        </div>
-      </div>
+      <EventTicker />
       <section className="section" id="competitions">
         <SectionHeading
           number="01"

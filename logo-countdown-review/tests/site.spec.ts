@@ -97,13 +97,19 @@ test("category browsing, direct links, back/forward and scroll restoration", asy
 }) => {
   await page.goto("/events/technical");
   await expect(page.getByRole("article")).toHaveCount(8);
-  await page
-    .getByRole("link", { name: "Explore Code Canvas", exact: true })
-    .scrollIntoViewIfNeeded();
+  const canvasLink = page.getByRole("link", {
+    name: "Explore Code Canvas",
+    exact: true,
+  });
+  await canvasLink.scrollIntoViewIfNeeded();
+  // Measure the resting position that the click will leave, after the entrance.
+  await expect(page.getByRole("article").filter({ has: canvasLink })).toHaveCSS(
+    "transform",
+    "none",
+  );
+  await canvasLink.scrollIntoViewIfNeeded();
   const y = await page.evaluate(() => window.scrollY);
-  await page
-    .getByRole("link", { name: "Explore Code Canvas", exact: true })
-    .click();
+  await canvasLink.click();
   await expect(page).toHaveURL(/code-canvas$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Code Canvas",
