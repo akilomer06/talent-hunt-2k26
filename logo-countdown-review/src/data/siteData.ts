@@ -555,10 +555,10 @@ export const siteData = {
   } satisfies GlobalSettings,
   assets: {
     college: "/assets/logos/crescent.png",
-    event: "/assets/logos/talent-hunt-crest.png",
+    event: "/assets/logos/talent-hunt.png",
     csea: "/assets/logos/csea.png",
     acm: "/assets/logos/acm.png",
-    brochureImage: "/assets/documents/brochure-crest-2026.png",
+    brochureImage: "/assets/documents/brochure-2026-10-14.jpg",
     brochurePdf: null,
     defaultSocial: null,
     introAudio: null,

@@ -2,7 +2,7 @@
 
 A complete backend-free event website built from the supplied official brochure. Includes the homepage, two category directories, sixteen dedicated competition pages, schedule, registration, about, venue, FAQs, contact, privacy and a real static 404.
 
-**Vercel project: [brainy6 / talent-hunt-2k26](https://vercel.com/brainy6/talent-hunt-2k26).** The current version includes the cream, blue, orange and black theme, original crest header with text beside it, updated brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
+**Vercel project: [brainy6 / talent-hunt-2k26](https://vercel.com/brainy6/talent-hunt-2k26).** The current version includes the cream, blue, orange and black theme, original TH26 logo with text beside it, previous lettering-based brochure, faculty/student/event coordinators, and revised Cyber Breach requirements. The homepage tagline has no leaf-and-star decoration, and the spotlight section has been removed.
 
 ## Run locally
 

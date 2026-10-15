@@ -1,19 +1,19 @@
 import { siteData } from "../data/siteData";
 
-/** The brochure's shield and laurels are the event's primary identity. */
+/** The original TH26 artwork, shared by the header, opening, and footer. */
 export function BrandWordmark({
   size = "header",
 }: {
-  size?: "header" | "opening" | "footer" | "hero";
+  size?: "header" | "opening" | "footer";
 }) {
-  const crest = (
+  const logo = (
     <img
-      className={`talent-crest talent-crest-${size}`}
+      className={`event-logo event-logo-${size}`}
       src={siteData.assets.event}
       alt=""
       aria-hidden="true"
-      width="1536"
-      height="1024"
+      width="1254"
+      height="1254"
       decoding="async"
       draggable={false}
     />
@@ -21,7 +21,7 @@ export function BrandWordmark({
   if (size === "header") {
     return (
       <span className="header-brand-lockup" aria-hidden="true">
-        <span className="header-crest-frame">{crest}</span>
+        <span className="header-logo-frame">{logo}</span>
         <span className="header-brand-copy">
           <span className="header-brand-name">TALENT</span>
           <span className="header-brand-second-line">
@@ -32,5 +32,5 @@ export function BrandWordmark({
       </span>
     );
   }
-  return crest;
+  return logo;
 }

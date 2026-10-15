@@ -30,7 +30,7 @@ test("a failed QR does not expose either registration action", async ({
     page
       .getByRole("main")
       .getByRole("link", { name: /View Official Brochure/ }),
-  ).toHaveAttribute("href", "/assets/documents/brochure-crest-2026.png");
+  ).toHaveAttribute("href", "/assets/documents/brochure-2026-10-14.jpg");
 });
 
 test("the archive closes published registration actions after the event date", async ({
