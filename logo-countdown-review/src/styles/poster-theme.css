@@ -447,19 +447,19 @@ em {
   line-height: 1.7;
 }
 
-/* Softer blue and warm orange surfaces keep the rounded arcade composition. */
+/* Cobalt blue and tangerine artwork share a neutral charcoal card base. */
 .event-card,
 .event-card.card-orange {
   --text: var(--cream);
-  --muted: #d2deee;
+  --muted: #d9e1eb;
   --surface: #ffffff0d;
   --line: #ffffff2b;
-  --card-body: #26364c;
-  --card-badge: #21354de8;
-  --poster-accent: #c5dfff;
-  --poster-fill: #649af0;
-  --poster-border: #86b6ff;
-  --poster-glow: #649af02b;
+  --card-body: #2b2d32;
+  --card-badge: #292b30ed;
+  --poster-accent: #b5d8ff;
+  --poster-fill: #64acff;
+  --poster-border: #8ac2ff;
+  --poster-glow: #4b9dff2b;
   --focus: var(--cream);
   color: var(--cream);
   color-scheme: dark;
@@ -629,8 +629,8 @@ em {
   --text: var(--cream);
   color: var(--cream);
   background:
-    radial-gradient(ellipse at 50% 35%, #8dbdff60, transparent 75%),
-    linear-gradient(145deg, #3e72b4, #284d7c);
+    radial-gradient(ellipse at 50% 30%, #92d4ff33, transparent 70%),
+    linear-gradient(145deg, #347de8, #1e4eaf);
   border-bottom: 1px solid #ffffff20;
 }
 .event-card .event-art.art-orange {
@@ -645,11 +645,11 @@ em {
     linear-gradient(90deg, #ffffff12 1px, transparent 1px);
 }
 .event-card .art-sculpture {
-  background: #4b7eb8;
-  border: 1px solid #d8eaff80;
+  background: #83bdff;
+  border: 1px solid #d1e9ff8c;
   box-shadow:
-    inset 0 0 30px #bedbff18,
-    0 12px 28px #152e4e40;
+    inset 0 0 30px #d8edff26,
+    0 12px 28px #163b7640;
 }
 .event-card .art-orange .art-sculpture {
   background: #ffb85c;
@@ -662,6 +662,9 @@ em {
 .event-card .event-art.art-orange > svg {
   stroke: var(--poster-accent);
   filter: drop-shadow(0 4px 12px #0005);
+}
+.event-card .event-art:not(.art-orange) > svg {
+  stroke: #15365f;
 }
 .event-card .event-art.art-orange > svg {
   stroke: #392316;
